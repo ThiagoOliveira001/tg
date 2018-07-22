@@ -6,7 +6,7 @@ const config = {
         port: process.env.REDIS_PORT || 6379
     },
     postgres: {
-        host: process.env.PG_HOST || '192.168.1.24',
+        host: process.env.PG_HOST || 'localhost',
         port: process.env.PG_PORT || '5432',
         database: process.env.PG_DATABASE || 'tg',
         user: process.env.PG_USER || 'postres',
