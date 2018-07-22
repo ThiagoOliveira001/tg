@@ -1,0 +1,62 @@
+﻿ENTITIES
+Id;Caption;Name;Schema;Comments;Notes;Before Script;After Script
+{50B43329-22D6-45F9-9254-3E2E2E208C3A};venda;venda;;;;;
+{89E09DB2-C7A6-4442-BFCA-FF5C6D5FB095};contrato;contrato;;;;;
+{733C20F5-46EF-4829-9F3B-703044DFAF83};usuario;usuario;;;;;
+{3FFD01E1-2BFF-49DB-A69A-6F3140BC5B10};consumo;consumo;;;;;
+{BAF063E6-4437-4216-B6F2-EDD625018331};aparelho;aparelho;;;;;
+
+ATTRIBUTES
+Id;Table Schema;Table;Caption;Name;Domain;Data Type;Data Type Param 1;Data Type Param 2;Primary Key;Not Null;Comments;Notes
+{45759EFF-D0C5-48CD-B442-2AE33F9230BF};;venda;idVenda;idVenda;;BigSerial;;;true;true;;
+{C79FFCAF-3975-4044-91C7-23B386BC4B4C};;venda;nroNf;nroNf;;Bigint;;;false;true;;
+{6B7575C6-DD67-4334-9F94-61928A3D9357};;venda;total;total;;Numeric;;;false;true;;
+{A027CCA5-A4ED-4F37-A24C-43A9CE9A6061};;venda;subTotal;subTotal;;Numeric;;;false;true;;
+{F014CFA9-4F3C-4889-B0B1-45031D262528};;venda;desconto;desconto;;Numeric;;;false;true;;
+{BA716B34-B6A0-4E64-889E-C9D0128ADF3C};;venda;data;data;;Timestamp;;;false;true;;
+{20C3B1DA-DFF9-46F1-955E-ABFF4F874086};;venda;nroContrato;nroContrato;;Bigint;;;false;false;;
+{69E36EAA-810A-4DB2-B5A0-D5685B80A4BF};;contrato;nroContrato;nroContrato;;BigSerial;;;true;true;;
+{D0C41DEC-3791-4F24-9B3F-858C2519D6D2};;contrato;corpoContrato;corpoContrato;;Character varying;;;false;true;;
+{8CB3BE72-2E7B-4A4A-81CE-47DAC521A29F};;contrato;idUsuario;idUsuario;;Bigint;;;false;false;;
+{640C872A-6F41-4FCB-97CE-3740F03511DA};;usuario;idUsuario;idUsuario;;BigSerial;;;true;true;;
+{AFBE1EC7-413F-4785-91B6-5E38964D2436};;usuario;rg;rg;;Character varying(%p1);20;;false;false;;
+{EDEA9CBF-105A-4B3D-9A5D-B22BEAF451D6};;usuario;cpf;cpf;;Character varying(%p1);20;;false;false;;
+{3529BB5E-A869-4333-9D9A-34D7487CCB8C};;usuario;razaoSocial;razaoSocial;;Character varying(%p1);200;;false;false;;
+{905CDDCC-9010-4AE0-85BD-8A2B10C26029};;usuario;sobrenome;sobrenome;;Character varying(%p1);150;;false;false;;
+{95A2BFB5-B6D7-4CDB-845F-2C58E89F7436};;usuario;cnpj;cnpj;;Character varying(%p1);25;;false;false;;
+{760713CA-971E-45E4-9576-BD86CD855649};;usuario;senha;senha;;Character varying(%p1);350;;false;true;;
+{8DE62D79-F901-4E77-9248-3A764AD71E72};;usuario;nome;nome;;Character varying(%p1);100;;false;false;;
+{0C7C3078-D8D9-4D65-8726-7C7E2B70F3D6};;usuario;dtNascimento;dtNascimento;;Date;;;false;true;;
+{2CACC8BD-56C4-4886-897F-0CA8F2AC7090};;usuario;nomeFantasia;nomeFantasia;;Character varying(%p1);200;;false;false;;
+{EE50BDC8-743C-4A22-AAE2-18B10A1D0E96};;consumo;idConsumo;idConsumo;;BigSerial;;;true;true;;
+{3096D40E-3B70-4122-A609-777D4A763876};;consumo;quantidade;quantidade;;Numeric;;;false;true;;
+{66D1E7B4-26BC-4E21-B1CA-B47D3B8584B1};;consumo;data;data;;Timestamp;;;false;true;;
+{C2F32193-39C5-4CCC-89B2-16722473303A};;consumo;idUsuario;idUsuario;;Bigint;;;false;false;;
+{C5CE1D06-3760-42CB-AB2A-0311FAE81457};;aparelho;idAparelho;idAparelho;;BigSerial;;;true;true;;
+{11958E12-93AA-4B2B-804C-AD9149670566};;aparelho;mac;mac;;Character varying(%p1);30;;false;true;;
+{E0F266E6-4BFF-4C6C-9498-ED53B77A41AA};;aparelho;valorCompra;valorCompra;;Numeric;;;false;true;;
+{C8B90F9C-C3B4-4469-A428-A55CED0BEB5E};;aparelho;dtInicioSituacao;dtInicioSituacao;;Timestamp;;;false;true;;
+{131B5FA0-1201-41A6-8486-1D2D6FE159DB};;aparelho;nroNf;nroNf;;Bigint;;;false;false;;
+{9997C6C6-9B2C-47A4-9EB3-8D3CB30224E7};;aparelho;situacao;situacao;;Character varying(%p1);40;;false;false;;
+{B185121B-003A-45AD-8D32-ABDE4CE1A298};;aparelho;dataCompra;dataCompra;;Date;;;false;true;;
+{7CDCB26A-D5AC-4523-888E-3F541CF0142C};;aparelho;modelo;modelo;;Character varying(%p1);60;;false;true;;
+{025C2C07-43FC-48A9-96F5-0D2457F67EBB};;aparelho;idUsuario;idUsuario;;Bigint;;;false;false;;
+
+RELATIONSHIPS
+Id;Caption;Name;Identifying;Parent Entity;Attributes in Parent Entity;Child Entity;Attributes in Child Entity;MandatoryChild;MandatoryParent;Notes
+{C1527EF9-A700-4F41-B50C-3D77DB41BC36};consumoUsuario;consumoUsuario;false;usuario;idUsuario;consumo;idUsuario;false;false;
+{B8F593CC-7853-439F-8E23-1DF3112778F4};vendaContrato;vendaContrato;false;contrato;nroContrato;venda;nroContrato;false;false;
+{5DACC2B8-1092-4CE5-842F-83B2C771A9BF};contratoUsuario;contratoUsuario;false;usuario;idUsuario;contrato;idUsuario;false;false;
+{17A1BB54-A1FA-4CF3-832A-CEA888FF88D4};aparelhoUsuario;aparelhoUsuario;false;usuario;idUsuario;aparelho;idUsuario;false;false;
+
+SCHEMAS
+Id;Caption;Name
+
+DOMAINS
+Id;Caption;Name;Data Type;Data Type Param 1;Data Type Param 2
+
+DICTTYPES
+Id;Caption;Name;Data Type;Data Type Param 1;Data Type Param 2
+
+VIEWS
+Id;Caption;Name;Schema;Aliases;Attributes;From;Where;Order;Group;Having;SQL;Comments;Notes;Before Script;After Script;Generate SQL Only;Select In Views As Text
