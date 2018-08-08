@@ -4,7 +4,8 @@ const repository = require('./loginRepository'),
 module.exports = {
     login,
     refazerLogin,
-    esqueceuSenha
+    esqueceuSenha,
+    alterarSenha
 }
 
 async function login(req, res) {
@@ -24,6 +25,12 @@ async function refazerLogin(req, res) {
 }
 
 async function esqueceuSenha(req, res) {
-    // let retorno = aw
+    let retorno = await repository.esqueceuSenha(req.body.email);
+    await service.esqueceuSenha(retorno);
+    res.ok();
+}
+
+async function alterarSenha(req, res) {
+    await repository.alterarSenha(req.body);
     res.ok();
 }
