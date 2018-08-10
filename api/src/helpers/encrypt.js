@@ -22,6 +22,6 @@ function decrypt(token) {
     return dec;
 }
 
-function gerarToken(email, senha) {
-    return encrypt(`${email},${senha},${new Date().getTime()}`).toUpperCase();
+function gerarToken(email, nomeRazaoSocial) {
+    return encrypt(`${email},${nomeRazaoSocial},${new Date().getTime()}`).toUpperCase();
 }

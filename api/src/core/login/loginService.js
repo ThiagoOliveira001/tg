@@ -1,12 +1,21 @@
-const email = require("../../")
+const email = require("../../helpers/email"),
+    crypto = require("../../helpers/encrypt");
 
 module.exports = {
-    esqueceuSenha
+    esqueceuSenha,
+    tokenToUser
 }
 
 async function esqueceuSenha(usuario) {
-    if(!usuario)
-        throw { statusCode: 404, message: "Usuário não encontrado" };
+    await email.send(usuario, 'esqueceuSenha.html');       
+}
 
-    
+function tokenToUser(token) {
+    let user = crypto.decrypt(token);
+    user = user.split(',');
+
+    return {
+        email: user[0].trim(),
+        nomeRazaoSocial: user[1].trim()
+    }
 }

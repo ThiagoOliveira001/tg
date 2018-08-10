@@ -20,12 +20,21 @@ async function login(req, res) {
 }
 
 async function refazerLogin(req, res) {
-    // let retorno = aw
+    let user = service.tokenToUser(req.headers.authentication);
+    let retorno = await repository.login(user);
+
+    if(!retorno)
+        throw { statusCode: 403, message: "Usuario sem permissão para a funcionalidade" };
+        
     res.ok();
 }
 
 async function esqueceuSenha(req, res) {
     let retorno = await repository.esqueceuSenha(req.body.email);
+
+    if(!retorno)
+        throw { statusCode: 404, message: "Usuário não encontrado" };
+
     await service.esqueceuSenha(retorno);
     res.ok();
 }

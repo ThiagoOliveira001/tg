@@ -10,13 +10,13 @@ module.exports = {
 const procedures = {
     login: 'public.login',
     esqueceuSenha: 'public.esqueceuSenha',
-    alterarSenha: 'public.alterarSenha',
+    alterarSenha: 'public.alterarSenha'
 }
 
-async function login(usuario) {
+async function login(body) {
     return pg.request()
-        .input('pNome', usuario.nome)
-        .input('pSenha', usuario.senha)
+        .input('pEmail', body.email)
+        .input('pSenha', body.senha)
         .asyncExecOne(procedures.login)
 }
 
@@ -30,5 +30,5 @@ async function alterarSenha(body) {
     await pg.request()
         .input('pEmail', body.email)
         .input('pNovaSenha', body.novaSenha)
-        .asyncExecOne(procedures.alterarSenha)
+        .asyncExec(procedures.alterarSenha)
 }

@@ -10,7 +10,7 @@ async function send(dados, templateName) {
     return new Promise((resolve, reject) => {
         let transporter = nodemailer.createTransport(Settings.configEmail);
         let options = createOptions(dados, templateName);
-        transporter.sendMail(email, content, (err) => {
+        transporter.sendMail(options, (err) => {
             if(err)
                 return reject(err);
 
@@ -23,13 +23,13 @@ function createOptions(dados, templateName) {
     let html = fs.readFileSync(`./src/resources/email/${templateName}`);
 
     for(let prop in dados) {
-        html.replace(`{{ dados.${prop} }}`, dados[prop]);
+        html = html.replace(`{{ dados.${prop} }}\g`, dados[prop]);
     }
 
     return {
         from: '"tg" <thiago.gontijo@smn.com.br>',
         to: 'thiagosilvaoliveira66@gmail.com',
         subject: 'Esqueceu a Senha',
-        html: '<b>Hello world?</b>'
+        html: html
     }
 }
