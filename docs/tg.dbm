@@ -21,7 +21,13 @@ CAUTION: Do not modify this file unless you know what you are doing.
 	<column name="cpfcnpj" not-null="true">
 		<type name="varchar" length="14"/>
 	</column>
+	<column name="email" not-null="true">
+		<type name="varchar" length="250"/>
+	</column>
 	<column name="nomerazaosocial" not-null="true">
+		<type name="varchar" length="250"/>
+	</column>
+	<column name="senha" not-null="true">
 		<type name="varchar" length="250"/>
 	</column>
 	<column name="datanascimentoconstituicao" not-null="true">
@@ -39,12 +45,15 @@ CAUTION: Do not modify this file unless you know what you are doing.
 	<constraint name="uq_usuario_cnpj" type="uq-constr" table="public.usuario">
 		<columns names="cpfcnpj" ref-type="src-columns"/>
 	</constraint>
+	<constraint name="uq_usuario_email" type="uq-constr" table="public.usuario">
+		<columns names="email" ref-type="src-columns"/>
+	</constraint>
 </table>
 
 <table name="endereco">
 	<schema name="public"/>
 	<role name="postgres"/>
-	<position x="200" y="300"/>
+	<position x="180" y="360"/>
 	<column name="id" not-null="true">
 		<type name="serial" length="0"/>
 	</column>
@@ -81,14 +90,17 @@ CAUTION: Do not modify this file unless you know what you are doing.
 	<column name="id" not-null="true">
 		<type name="serial" length="0"/>
 	</column>
+	<column name="idusuario" not-null="true">
+		<type name="integer" length="0"/>
+	</column>
 	<column name="ddd" not-null="true">
 		<type name="smallint" length="0"/>
 	</column>
 	<column name="numero" not-null="true">
 		<type name="varchar" length="9"/>
 	</column>
-	<column name="idusuario" not-null="true">
-		<type name="integer" length="0"/>
+	<column name="nomecontato" not-null="true">
+		<type name="varchar" length="100"/>
 	</column>
 	<constraint name="pk_telefone" type="pk-constr" table="public.telefone">
 		<columns names="id" ref-type="src-columns"/>
