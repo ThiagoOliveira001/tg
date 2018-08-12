@@ -21,7 +21,7 @@ const ctrl = require('./loginController'),
         {
             url: '/api/login/alterar-senha',
             routes: [
-                { method: 'post', controller: ctrl.alterarSenha, public: true }
+                { method: 'post', controller: ctrl.alterarSenha }
             ]
         }
     ];

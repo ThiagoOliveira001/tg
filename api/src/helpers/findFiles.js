@@ -31,5 +31,5 @@ async function execute(path, name, list, find) {
                 filename: name
             });
         }
-    })
+    });
 }

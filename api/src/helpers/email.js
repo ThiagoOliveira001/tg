@@ -28,7 +28,8 @@ function createOptions(dados, templateName) {
 
     return {
         from: '"tg" <thiago.gontijo@smn.com.br>',
-        to: 'thiagosilvaoliveira66@gmail.com',
+        to: 'moreira.g.thiago@gmail.com',
+        // to: 'thiagosilvaoliveira66@gmail.com',
         subject: 'Esqueceu a Senha',
         html: html
     }

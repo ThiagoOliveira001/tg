@@ -4,24 +4,19 @@ const crypto = require('crypto'),
 
 module.exports = {
     encrypt,
-    decrypt,
-    gerarToken
+    decrypt
 };
 
 function encrypt(value) {
     let cipher = crypto.createCipher(algorithm, token_pass);
-    let crypted = cipher.update(value, 'utf8', 'hex')
+    let crypted = cipher.update(value, 'utf8', 'hex');
     crypted += cipher.final('hex');
     return crypted;
 }
 
 function decrypt(token) {
-    let decipher = crypto.createDecipher(algorithm, token_pass)
-    let dec = decipher.update(token, 'hex', 'utf8')
+    let decipher = crypto.createDecipher(algorithm, token_pass);
+    let dec = decipher.update(token, 'hex', 'utf8');
     dec += decipher.final('utf8');
     return dec;
-}
-
-function gerarToken(email, nomeRazaoSocial) {
-    return encrypt(`${email},${nomeRazaoSocial},${new Date().getTime()}`).toUpperCase();
 }

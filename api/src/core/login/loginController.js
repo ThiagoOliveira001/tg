@@ -1,5 +1,6 @@
 const repository = require('./loginRepository'),
-    service = require('./loginService');
+    service = require('./loginService'),
+    auth = require("../../helpers/token");
 
 module.exports = {
     login,
@@ -9,37 +10,40 @@ module.exports = {
 }
 
 async function login(req, res) {
+    req.body.senha = service.criptografaSenha(req.body.senha);
     let retorno = await repository.login(req.body);
 
     if(!retorno)
         throw { statusCode: 404, message: 'Usuario não encontrado.\nVerifique as credenciais.' };
 
-    retorno.token = 'tokenFera'//service.(req.body);
-
-    res.ok(retorno);
+    let token = service.gerarToken(retorno.usuario);
+    res.ok({ usuario: retorno, token: token });
 }
 
 async function refazerLogin(req, res) {
-    let user = service.tokenToUser(req.headers.authentication);
-    let retorno = await repository.login(user);
+    auth(req);
+    let retorno = await repository.refazerLogin(req.user);
 
     if(!retorno)
         throw { statusCode: 403, message: "Usuario sem permissão para a funcionalidade" };
         
-    res.ok();
+    let token = service.gerarToken(retorno);
+    res.ok({ usuario: retorno, token: token });
 }
 
 async function esqueceuSenha(req, res) {
-    let retorno = await repository.esqueceuSenha(req.body.email);
+    let retorno = await repository.esqueceuSenha(req.body);
 
     if(!retorno)
-        throw { statusCode: 404, message: "Usuário não encontrado" };
+        throw { statusCode: 404, message: "Nenhum usuario encontrado" };
 
+    retorno.token = service.gerarToken(retorno);
     await service.esqueceuSenha(retorno);
     res.ok();
 }
 
 async function alterarSenha(req, res) {
+    req.body.novaSenha = service.criptografaSenha(req.body.novaSenha)
     await repository.alterarSenha(req.body);
     res.ok();
 }

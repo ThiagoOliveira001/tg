@@ -3,32 +3,43 @@ const { postgres } = require('../../../config/settings'),
 
 module.exports = {
     login,
+    refazerLogin,
     esqueceuSenha,
     alterarSenha
 }
 
 const procedures = {
     login: 'public.login',
+    refazerLogin: 'public.refazerLogin',
     esqueceuSenha: 'public.esqueceuSenha',
     alterarSenha: 'public.alterarSenha'
 }
 
-async function login(body) {
+async function login(user) {
     return pg.request()
-        .input('pEmail', body.email)
-        .input('pSenha', body.senha)
-        .asyncExecOne(procedures.login)
+        .input('pEmail', user.email)
+        .input('pSenha', user.senha)
+        .asyncExecOne(procedures.login);
 }
 
-async function esqueceuSenha(email) {
+async function refazerLogin(user) {
     return pg.request()
-        .input('pEmail', email)
-        .asyncExecOne(procedures.esqueceuSenha)
+        .input('pId', user.id)
+        .input('pEmail', user.email)
+        .asyncExecOne(procedures.refazerLogin);
 }
 
-async function alterarSenha(body) {
+async function esqueceuSenha(user) {
+    return pg.request()
+        .input('pEmail', user.email)
+        .input('pCpfCnpj', user.cpfCnpj)
+        .asyncExecOne(procedures.esqueceuSenha);
+}
+
+async function alterarSenha(user) {
     await pg.request()
-        .input('pEmail', body.email)
-        .input('pNovaSenha', body.novaSenha)
-        .asyncExec(procedures.alterarSenha)
+        .input('pId', user.id)
+        .input('pEmail', user.email)
+        .input('pNovaSenha', user.novaSenha)
+        .asyncExec(procedures.alterarSenha);
 }

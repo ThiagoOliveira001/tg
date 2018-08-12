@@ -3,19 +3,18 @@ const email = require("../../helpers/email"),
 
 module.exports = {
     esqueceuSenha,
-    tokenToUser
+    gerarToken,
+    criptografaSenha
 }
 
 async function esqueceuSenha(usuario) {
     await email.send(usuario, 'esqueceuSenha.html');       
 }
 
-function tokenToUser(token) {
-    let user = crypto.decrypt(token);
-    user = user.split(',');
+function gerarToken(user) {
+    return crypto.encrypt(`${user.id},${user.email},${user.nomeRazaoSocial},${new Date().getTime()}`).toUpperCase();
+}
 
-    return {
-        email: user[0].trim(),
-        nomeRazaoSocial: user[1].trim()
-    }
+function criptografaSenha(senha) {
+    return crypto.encrypt(senha);
 }
