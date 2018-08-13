@@ -14,17 +14,20 @@
 
 
 <ion-content padding>
-    <ion-list>
-      <ion-item>
-        <ion-label>Usuario</ion-label>
-        <ion-input type="email" [(ngModel)]="loginData.email"></ion-input>
-      </ion-item>
-      <ion-item>
-        <ion-label>Senha</ion-label>
-        <ion-input type="password" [(ngModel)]="loginData.senha"></ion-input>
-      </ion-item>
-    </ion-list>
-    <div>
+  <ion-list>
+    <ion-item>
+      <ion-label>Usuario</ion-label>
+      <ion-input type="email" [(ngModel)]="loginData.email"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label>Senha</ion-label>
+      <ion-input type="password" [(ngModel)]="loginData.senha"></ion-input>
+    </ion-item>
+    <div text-center>
       <button ion-button (click)="logar()" (press)="logar()" block>ENTRAR</button>
+      <button id="forgot-password" (click)="forgotPassword()">
+        <a>Esqueci minha senha</a>
+      </button>
     </div>
+  </ion-list>
 </ion-content>
