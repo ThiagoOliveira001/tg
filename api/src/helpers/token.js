@@ -13,10 +13,9 @@ module.exports = (req) => {
     let token = crypto.decrypt(req.headers.authentication);
     token = token.split(',');
 
-    let user = {
-        email: token[0].trim(),
-        senha: token[1].trim()
+    req.user = {
+        id: token[0].trim(),
+        email: token[1].trim(),
+        nomeRazaoSocial: token[2].trim()
     };
-
-    req.user = user;
 }
