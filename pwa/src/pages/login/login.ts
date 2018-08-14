@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { NavController, NavParams, ToastController } from 'ionic-angular';
 import { AuthServiceProvider } from '../../providers/auth-service/auth-service';
 import { HomePage } from '../home/home';
+import { ForgotPasswordPage } from '../forgot-password/forgot-password';
 
 /**
  * Generated class for the LoginPage page.
@@ -38,6 +39,10 @@ export class LoginPage {
       console.log('catch'); 
       this.presentToast(res.error.message);
      });
+  }
+
+  forgotPassword() {
+    this.navCtrl.push(ForgotPasswordPage);
   }
 //banana
   presentToast(msg: string) {

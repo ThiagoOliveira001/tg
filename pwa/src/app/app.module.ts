@@ -12,17 +12,21 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 import { AuthServiceProvider } from '../providers/auth-service/auth-service';
 import { LoginPage } from '../pages/login/login';
 import { HttpClientModule } from '@angular/common/http';
+import { InterceptorModule } from '../providers/interceptor.module';
+import { ForgotPasswordPage } from '../pages/forgot-password/forgot-password';
 
 @NgModule({
   declarations: [
     MyApp,
     HomePage,
     ListPage,
-    LoginPage
+    LoginPage,
+    ForgotPasswordPage
   ],
   imports: [
     BrowserModule,
     HttpClientModule,
+    InterceptorModule,
     IonicModule.forRoot(MyApp),
     IonicStorageModule.forRoot()
   ],
@@ -31,7 +35,8 @@ import { HttpClientModule } from '@angular/common/http';
     MyApp,
     HomePage,
     ListPage,
-    LoginPage
+    LoginPage,
+    ForgotPasswordPage
   ],
   providers: [
     StatusBar,
