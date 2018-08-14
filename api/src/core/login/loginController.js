@@ -16,7 +16,7 @@ async function login(req, res) {
     if(!retorno)
         throw { statusCode: 404, message: 'Usuario não encontrado.\nVerifique as credenciais.' };
 
-    let token = service.gerarToken(retorno.usuario);
+    let token = service.gerarToken(retorno);
     res.ok({ usuario: retorno, token: token });
 }
 
@@ -43,6 +43,7 @@ async function esqueceuSenha(req, res) {
 }
 
 async function alterarSenha(req, res) {
+    service.validaExpiracaoToken(req.headers.authentication);
     req.body.novaSenha = service.criptografaSenha(req.body.novaSenha)
     await repository.alterarSenha(req.body);
     res.ok();
