@@ -70,7 +70,7 @@ LANGUAGE plpgsql;
 
 --------------------------------------------------------------------------------------
 
-CREATE OR REPLACE FUNCTION public.esqueceuSenha(
+CREATE OR REPLACE FUNCTION public.buscarUsuarioEmailCpfCnpj(
     pEmail public.usuario.email%TYPE,
     pCpfCnpj public.usuario.cpfCnpj%TYPE
 )
@@ -88,7 +88,7 @@ CREATE OR REPLACE FUNCTION public.esqueceuSenha(
         Autor.............: Thiago Moreira
         Data..............: 12/08/2018
         Ex................:
-            SELECT * FROM public.esqueceuSenha('email', 'cpfCnpj');
+            SELECT * FROM public.buscarUsuarioEmailCpfCnpj('email', 'cpfCnpj');
     */
 
     BEGIN
@@ -102,9 +102,9 @@ CREATE OR REPLACE FUNCTION public.esqueceuSenha(
                 WHERE 
                     CASE WHEN pEmail IS NOT NULL THEN
                         email ILIKE pEmail
-                    ELSE THEN
+                    ELSE
                         cpfCnpj = pCpfCnpj
-                    END
+                    END;
 
     END;
 $$ 

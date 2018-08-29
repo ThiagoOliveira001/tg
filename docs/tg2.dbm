@@ -3,7 +3,7 @@
 CAUTION: Do not modify this file unless you know what you are doing.
          Unexpected results may occur if the code is changed deliberately.
 -->
-<dbmodel pgmodeler-ver="0.9.0" last-position="0,236" last-zoom="1"
+<dbmodel pgmodeler-ver="0.9.0" last-position="0,47" last-zoom="1"
 	 default-owner="postgres">
 <database name="tg">
 </database>
@@ -113,11 +113,11 @@ CAUTION: Do not modify this file unless you know what you are doing.
 <table name="hardware">
 	<schema name="public"/>
 	<role name="postgres"/>
-	<position x="900" y="200"/>
+	<position x="560" y="260"/>
 	<column name="id" not-null="true">
 		<type name="serial" length="0"/>
 	</column>
-	<column name="idcontrato" not-null="true">
+	<column name="idusuario" not-null="true">
 		<type name="integer" length="0"/>
 	</column>
 	<column name="modelo" not-null="true">
@@ -131,31 +131,10 @@ CAUTION: Do not modify this file unless you know what you are doing.
 	</constraint>
 </table>
 
-<table name="contrato">
-	<schema name="public"/>
-	<role name="postgres"/>
-	<position x="540" y="280"/>
-	<column name="id" not-null="true">
-		<type name="serial" length="0"/>
-	</column>
-	<column name="idusuario" not-null="true">
-		<type name="integer" length="0"/>
-	</column>
-	<column name="mensalidade" not-null="true">
-		<type name="decimal" length="8" precision="2"/>
-	</column>
-	<column name="data" not-null="true">
-		<type name="timestamp" length="0"/>
-	</column>
-	<constraint name="pk_contrato" type="pk-constr" table="public.contrato">
-		<columns names="id" ref-type="src-columns"/>
-	</constraint>
-</table>
-
 <table name="consumo">
 	<schema name="public"/>
 	<role name="postgres"/>
-	<position x="940" y="420"/>
+	<position x="540" y="440"/>
 	<column name="id" not-null="true">
 		<type name="serial" length="0"/>
 	</column>
@@ -173,42 +152,6 @@ CAUTION: Do not modify this file unless you know what you are doing.
 	</constraint>
 </table>
 
-<table name="pagamento">
-	<schema name="public"/>
-	<role name="postgres"/>
-	<position x="540" y="460"/>
-	<column name="id" not-null="true">
-		<type name="serial" length="0"/>
-	</column>
-	<column name="idcontrato" not-null="true">
-		<type name="integer" length="0"/>
-	</column>
-	<column name="idtipopagamento" not-null="true">
-		<type name="smallint" length="0"/>
-	</column>
-	<column name="data" not-null="true">
-		<type name="timestamp" length="0"/>
-	</column>
-	<constraint name="pk_pagamento" type="pk-constr" table="public.pagamento">
-		<columns names="id" ref-type="src-columns"/>
-	</constraint>
-</table>
-
-<table name="tipopagamento">
-	<schema name="public"/>
-	<role name="postgres"/>
-	<position x="540" y="640"/>
-	<column name="id" not-null="true">
-		<type name="serial" length="0"/>
-	</column>
-	<column name="nome" not-null="true">
-		<type name="varchar" length="30"/>
-	</column>
-	<constraint name="pk_tipopagamento" type="pk-constr" table="public.tipopagamento">
-		<columns names="id" ref-type="src-columns"/>
-	</constraint>
-</table>
-
 <constraint name="fk_endereco_usuario" type="fk-constr" comparison-type="MATCH FULL"
 	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="public.usuario" table="public.endereco">
 	<columns names="idusuario" ref-type="src-columns"/>
@@ -221,14 +164,8 @@ CAUTION: Do not modify this file unless you know what you are doing.
 	<columns names="id" ref-type="dst-columns"/>
 </constraint>
 
-<constraint name="fk_hardware_contrato" type="fk-constr" comparison-type="MATCH FULL"
-	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="public.contrato" table="public.hardware">
-	<columns names="idcontrato" ref-type="src-columns"/>
-	<columns names="id" ref-type="dst-columns"/>
-</constraint>
-
-<constraint name="fk_contrato_usuario" type="fk-constr" comparison-type="MATCH FULL"
-	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="public.usuario" table="public.contrato">
+<constraint name="fk_hardware_usuario" type="fk-constr" comparison-type="MATCH FULL"
+	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="public.usuario" table="public.hardware">
 	<columns names="idusuario" ref-type="src-columns"/>
 	<columns names="id" ref-type="dst-columns"/>
 </constraint>
@@ -236,18 +173,6 @@ CAUTION: Do not modify this file unless you know what you are doing.
 <constraint name="fk_consumo_hardware" type="fk-constr" comparison-type="MATCH FULL"
 	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="public.hardware" table="public.consumo">
 	<columns names="idhardware" ref-type="src-columns"/>
-	<columns names="id" ref-type="dst-columns"/>
-</constraint>
-
-<constraint name="fk_pagamento_contrato" type="fk-constr" comparison-type="MATCH FULL"
-	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="public.contrato" table="public.pagamento">
-	<columns names="idcontrato" ref-type="src-columns"/>
-	<columns names="id" ref-type="dst-columns"/>
-</constraint>
-
-<constraint name="fk_pagamento_tipopagamento" type="fk-constr" comparison-type="MATCH FULL"
-	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="public.tipopagamento" table="public.pagamento">
-	<columns names="idtipopagamento" ref-type="src-columns"/>
 	<columns names="id" ref-type="dst-columns"/>
 </constraint>
 
@@ -261,29 +186,14 @@ CAUTION: Do not modify this file unless you know what you are doing.
 	 dst-table="public.usuario"
 	 src-required="false" dst-required="false"/>
 
-<relationship name="rel_contrato_usuario" type="relfk"
-	 src-table="public.contrato"
-	 dst-table="public.usuario"
-	 src-required="false" dst-required="false"/>
-
 <relationship name="rel_consumo_hardware" type="relfk"
 	 src-table="public.consumo"
 	 dst-table="public.hardware"
 	 src-required="false" dst-required="false"/>
 
-<relationship name="rel_hardware_contrato" type="relfk"
+<relationship name="rel_hardware_usuario" type="relfk"
 	 src-table="public.hardware"
-	 dst-table="public.contrato"
-	 src-required="false" dst-required="false"/>
-
-<relationship name="rel_pagamento_contrato" type="relfk"
-	 src-table="public.pagamento"
-	 dst-table="public.contrato"
-	 src-required="false" dst-required="false"/>
-
-<relationship name="rel_pagamento_tipopagamento" type="relfk"
-	 src-table="public.pagamento"
-	 dst-table="public.tipopagamento"
+	 dst-table="public.usuario"
 	 src-required="false" dst-required="false"/>
 
 </dbmodel>

@@ -1,6 +1,5 @@
 const email = require("../../helpers/email"),
-    crypto = require("../../helpers/encrypt"),
-    jwt = require("jsonwebtoken");
+    crypto = require("../../helpers/encrypt");
 
 module.exports = {
     esqueceuSenha,
@@ -10,10 +9,11 @@ module.exports = {
 }
 
 async function esqueceuSenha(usuario) {
+    usuario.url = gerarToken(usuario);
     await email.send(usuario, 'esqueceuSenha.html');
 }
 
-function gerarToken(user, jwtoken) {
+function gerarToken(user) {
     return crypto.encrypt(`${user.id},${user.email},${user.nomeRazaoSocial},${new Date().getTime()}`).toUpperCase();
 }
 

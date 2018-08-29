@@ -32,12 +32,11 @@ async function refazerLogin(req, res) {
 }
 
 async function esqueceuSenha(req, res) {
-    let retorno = await repository.esqueceuSenha(req.body);
+    let retorno = await repository.buscarUsuarioEmailCpfCnpj(req.body);
 
     if(!retorno)
         throw { statusCode: 404, message: "Nenhum usuario encontrado" };
 
-    retorno.token = service.gerarToken(retorno);
     await service.esqueceuSenha(retorno);
     res.ok();
 }

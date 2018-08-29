@@ -1,5 +1,6 @@
 const config = {
     port: 3001,
+    token_pass: 'ts&tm_tg@2018!#',
     mqtt: process.env.MQTT_URL || 'mqtt://localhost:1883',
     redis: {
         host: process.env.REDIS_HOST || 'localhost',
@@ -12,7 +13,13 @@ const config = {
         user: process.env.PG_USER || 'postres',
         password: process.env.PG_PASSWORD || 'teste',
     },
-    token_pass: 'ts&tm_tg@2018!#'
+    configEmail: {
+        service: "gmail",
+        auth: {
+            user: "moreira.g.thiago@gmail.com",
+            pass: "t@moreira2018"
+        }
+    }
 }
 
 module.exports = config;

@@ -8,7 +8,7 @@ module.exports = (req, res, next) => {
         if(typeof content == 'string')
             return res.status(200).json({ message: content });
 
-        res.status(200).json(content);
+        res.status(200).json({ content });
     }
     
     next();
