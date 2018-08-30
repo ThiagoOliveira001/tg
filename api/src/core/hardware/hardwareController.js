@@ -1,5 +1,5 @@
-const repository = require("./usuarioRepository"),
-    scope = require("./usuarioScope"),
+const repository = require("./hardwareRepository"),
+    scope = require("./hardwareScope"),
     crypto = require("../../helpers/encrypt");
 
 module.exports = {
@@ -20,7 +20,6 @@ async function buscar(req, res) {
 }
 
 async function cadastrar(req, res) {
-    req.body.senha = crypto.encrypt(req.body.senha);
     await repository.cadastrar(req.body);
     res.ok();
 }
