@@ -3,15 +3,14 @@ const { postgres } = require('../../../config/settings'),
 
 module.exports = {
     login,
-    refazerLogin,
-    buscarUsuarioEmailCpfCnpj,
+    buscarUsuarioEmail,
     alterarSenha
 }
 
 const procedures = {
     login: 'public.login',
     refazerLogin: 'public.refazerLogin',
-    buscarUsuarioEmailCpfCnpj: 'public.buscarUsuarioEmailCpfCnpj',
+    buscarUsuarioEmail: 'public.buscarUsuarioEmail',
     alterarSenha: 'public.alterarSenha'
 }
 
@@ -22,18 +21,10 @@ async function login(user) {
         .asyncExecOne(procedures.login);
 }
 
-async function refazerLogin(user) {
+async function buscarUsuarioEmail(email) {
     return pg.request()
-        .input('pId', user.id)
-        .input('pEmail', user.email)
-        .asyncExecOne(procedures.refazerLogin);
-}
-
-async function buscarUsuarioEmailCpfCnpj(user) {
-    return pg.request()
-        .input('pEmail', user.email)
-        .input('pCpfCnpj', user.cpfCnpj)
-        .asyncExecOne(procedures.buscarUsuarioEmailCpfCnpj);
+        .input('pEmail', email)
+        .asyncExecOne(procedures.buscarUsuarioEmail);
 }
 
 async function alterarSenha(user) {

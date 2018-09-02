@@ -1,6 +1,4 @@
-const repository = require("./hardwareRepository"),
-    scope = require("./hardwareScope"),
-    crypto = require("../../helpers/encrypt");
+const repository = require("./hardwareRepository");
 
 module.exports = {
     selecionar,

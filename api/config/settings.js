@@ -1,23 +1,14 @@
 const config = {
     port: 3001,
-    token_pass: 'ts&tm_tg@2018!#',
-    mqtt: process.env.MQTT_URL || 'mqtt://localhost:1883',
-    redis: {
-        host: process.env.REDIS_HOST || 'localhost',
-        port: process.env.REDIS_PORT || 6379
-    },
-    postgres: {
-        host: process.env.PG_HOST || 'localhost',
-        port: process.env.PG_PORT || '5432',
-        database: process.env.PG_DATABASE || 'tg',
-        user: process.env.PG_USER || 'postres',
-        password: process.env.PG_PASSWORD || 'teste',
-    },
-    configEmail: {
-        service: "gmail",
-        auth: {
-            user: "moreira.g.thiago@gmail.com",
-            pass: "t@moreira2018"
+    Mongo: {
+        host: process.env.MONGO_HOST || "localhost",
+        user: process.env.MONGO_USER || "mongodev",
+        password: process.env.MONGO_PASSWORD || "!Mongo@Dev1",
+        database: process.env.MONGO_DATABASE || "tg",
+        port: process.env.MONGO_PORT || "27017",
+        auth: process.env.MONGO_AUTH || "admin",
+        getUri: () => {
+            return `mongodb://${config.Mongo.host}:${config.Mongo.port}/${config.Mongo.database}`;
         }
     }
 }

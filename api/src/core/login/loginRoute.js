@@ -7,12 +7,6 @@ const ctrl = require('./loginController'),
             ]
         },
         {
-            url: '/api/login/refazer',
-            routes: [
-                { method: 'get', controller: ctrl.refazerLogin }
-            ]
-        },
-        {
             url: '/api/login/esqueceu-senha',
             routes: [
                 { method: 'post', controller: ctrl.esqueceuSenha, public: true }

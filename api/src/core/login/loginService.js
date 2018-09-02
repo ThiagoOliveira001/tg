@@ -1,20 +1,20 @@
-const email = require("../../helpers/email"),
+const { whatsAppUrl } = require("../../../config/settings"), 
+    email = require("../../helpers/email"),
     crypto = require("../../helpers/encrypt");
 
 module.exports = {
     esqueceuSenha,
     gerarToken,
-    validaExpiracaoToken,
-    criptografaSenha
+    validaExpiracaoToken
 }
 
 async function esqueceuSenha(usuario) {
-    usuario.url = gerarToken(usuario);
+    usuario.url = `http://www.google.com.br/esqueceu-senha/${gerarToken(usuario)}`;
     await email.send(usuario, 'esqueceuSenha.html');
 }
 
 function gerarToken(user) {
-    return crypto.encrypt(`${user.id},${user.email},${user.nomeRazaoSocial},${new Date().getTime()}`).toUpperCase();
+    return crypto.encrypt(`${user.id},${user.email},${user.nomeRazaoSocial},${new Date().getTime()}`);
 }
 
 function validaExpiracaoToken(token) {
@@ -24,8 +24,4 @@ function validaExpiracaoToken(token) {
 
     if(horas > 24)
         throw { statusCode: 403, message: "Token expirado" };
-}
-
-function criptografaSenha(senha) {
-    return crypto.encrypt(senha);
 }

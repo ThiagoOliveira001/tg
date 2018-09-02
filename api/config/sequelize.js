@@ -1,6 +1,8 @@
-const Sequelize = require("sequelize");
-const db = new Sequelize('tg', 'postgres', '1234', {
-    host: 'localhost',
+const { postgres } = require("./settings");
+Sequelize = require("sequelize");
+
+const db = new Sequelize(postgres.database, postgres.user, postgres.password, {
+    host: postgres.host,
     dialect: 'postgres',
     operatorsAliases: false,
     quoteIdentifiers: false,
@@ -16,15 +18,13 @@ const db = new Sequelize('tg', 'postgres', '1234', {
     }
 })
 
-db.authenticate()
-    .then(() => {
-        console.log('Connection has been established successfully.');
-    })
-    .catch(err => {
-        console.error('Unable to connect to the database:', err);
-    });
+async function connect() {
+    await db.authenticate();
+    console.log('PostgreSQL connection is established');
+}
 
 module.exports = {
     Sequelize,
-    db
+    db,
+    connect
 };

@@ -3,7 +3,7 @@ const ctrl = require('./consumoController'),
         {
             url: '/api/consumo',
             routes: [
-                { method: 'get', controller: ctrl.selecionar }
+                { method: 'post', controller: ctrl.cadastrar }
             ]
         }
     ];

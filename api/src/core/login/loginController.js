@@ -1,16 +1,15 @@
 const repository = require('./loginRepository'),
     service = require('./loginService'),
-    auth = require("../../helpers/token");
+    crypto = require("../../helpers/encrypt");
 
 module.exports = {
     login,
-    refazerLogin,
     esqueceuSenha,
     alterarSenha
 }
 
 async function login(req, res) {
-    req.body.senha = service.criptografaSenha(req.body.senha);
+    req.body.senha = crypto.encrypt(req.body.senha);
     let retorno = await repository.login(req.body);
 
     if(!retorno)
@@ -20,19 +19,8 @@ async function login(req, res) {
     res.ok({ usuario: retorno, token: token });
 }
 
-async function refazerLogin(req, res) {
-    auth(req);
-    let retorno = await repository.refazerLogin(req.user);
-
-    if(!retorno)
-        throw { statusCode: 403, message: "Usuario sem permissão para a funcionalidade" };
-        
-    let token = service.gerarToken(retorno);
-    res.ok({ usuario: retorno, token: token });
-}
-
 async function esqueceuSenha(req, res) {
-    let retorno = await repository.buscarUsuarioEmailCpfCnpj(req.body);
+    let retorno = await repository.buscarUsuarioEmail(req.body.email);
 
     if(!retorno)
         throw { statusCode: 404, message: "Nenhum usuario encontrado" };
@@ -43,7 +31,7 @@ async function esqueceuSenha(req, res) {
 
 async function alterarSenha(req, res) {
     service.validaExpiracaoToken(req.headers.authentication);
-    req.body.novaSenha = service.criptografaSenha(req.body.novaSenha)
+    req.body.novaSenha = crypto.encrypt(req.body.novaSenha);
     await repository.alterarSenha(req.body);
     res.ok();
 }
