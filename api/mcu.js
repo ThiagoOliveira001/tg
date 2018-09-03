@@ -2,8 +2,9 @@ const _mqtt = require('mqtt'),
     _redis = require('redis');
 
 module.exports = (config) => {
+
     const mqtt = _mqtt.connect(config.mqtt);
-    const redis = _redis.createClient(config.redis.port, config.redis.host);
+    // const redis = _redis.createClient(config.redis.port, config.redis.host);
 
     mqtt.on('connect', () => {
         mqtt.subscribe('energia');

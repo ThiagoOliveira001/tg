@@ -1,0 +1,88 @@
+<!--
+  Generated template for the CadastroUsuarioPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar color="primary">
+    <ion-title>Cadastrar</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+  <ion-list>
+    <ion-item>
+      <ion-label>Tipo Pessoa</ion-label>
+      <ion-select [(ngModel)]="usuario.tipoPessoa">
+        <ion-option value="fisica">Fisica</ion-option>
+        <ion-option value="juridica">Juridica</ion-option>
+      </ion-select>
+    </ion-item>
+  </ion-list>
+  <ion-list *ngIf="usuario.tipoPessoa == 'fisica'">
+    <ion-item>
+      <ion-input placeholder="Nome" [(ngModel)]="usuario.nomeRazaoSocial"></ion-input> 
+    </ion-item>
+    <ion-item>
+      <ion-input placeholder="Sobrenome" [(ngModel)]="usuario.sobrenomeFantasia"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-input type="password" placeholder="Senha" [(ngModel)]="usuario.senha"></ion-input>
+    </ion-item>
+    <ion-item>
+        <ion-input type="password" placeholder="Confirmar Senha" [(ngModel)]="confirma.senha"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-input placeholder="CPF" [(ngModel)]="usuario.cpfCnpj"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-input type="email" placeholder="Email" [(ngModel)]="usuario.email"></ion-input>
+    </ion-item>
+    <ion-item>
+        <ion-input type="email" placeholder="Confirmar Email" [(ngModel)]="confirma.email"></ion-input>
+      </ion-item>
+    <ion-item>
+      <ion-input placeholder="RG" [(ngModel)]="usuario.rgInscricaoEstadual"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label>Data de Nascimento</ion-label>
+      <ion-datetime maxDate="01/01/2000" displayFormat="MM/DD/YYYY" [(ngModel)]="usuario.dataNascimentoConstituicao"></ion-datetime>
+    </ion-item>
+    <button ion-button (click)="cadastrar()" block>SALVAR</button>
+  </ion-list>
+  <ion-list *ngIf="usuario.tipoPessoa == 'juridica'">
+      <ion-item>
+          <ion-input placeholder="Razao Social" [(ngModel)]="usuario.nomeRazaoSocial"></ion-input> 
+        </ion-item>
+        <ion-item>
+          <ion-input placeholder="Fantasia" [(ngModel)]="usuario.sobrenomeFantasia"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-input type="password" placeholder="Senha" [(ngModel)]="usuario.senha"></ion-input>
+        </ion-item>
+        <ion-item>
+            <ion-input type="password" placeholder="Confirmar Senha" [(ngModel)]="confirma.senha"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-input placeholder="CNPJ" [(ngModel)]="usuario.cpfCnpj"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-input placeholder="Email" [(ngModel)]="usuario.email"></ion-input>
+        </ion-item>
+        <ion-item>
+            <ion-input type="email" placeholder="Confirmar Email" [(ngModel)]="confirma.email"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-input placeholder="IE" [(ngModel)]="usuario.rgInscricaoEstadual"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label>Data de Constituicao</ion-label>
+          <ion-datetime displayFormat="MM/DD/YYYY" [(ngModel)]="usuario.dataNascimentoConstituicao"></ion-datetime>
+        </ion-item>
+        <button ion-button (click)="cadastrar()" block>SALVAR</button>
+  </ion-list>
+</ion-content>

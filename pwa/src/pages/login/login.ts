@@ -3,6 +3,7 @@ import { NavController, NavParams, ToastController } from 'ionic-angular';
 import { AuthServiceProvider } from '../../providers/auth-service/auth-service';
 import { HomePage } from '../home/home';
 import { ForgotPasswordPage } from '../forgot-password/forgot-password';
+import { CadastroUsuarioPage } from '../cadastro-usuario/cadastro-usuario';
 
 /**
  * Generated class for the LoginPage page.
@@ -30,13 +31,16 @@ export class LoginPage {
   }
 
 
-  logar() {
+  chamaTelaCadastro() {  
+      this.navCtrl.push(CadastroUsuarioPage);
+  }
+
+  logar() { 
      this._authService.logar(this.loginData).then((data: any) => {
         this._authService.setUser(data.usuario);
         this._authService.setToken(data.token);
         this.navCtrl.setRoot(HomePage);
      }).catch((res:any) => {
-      console.log('catch'); 
       this.presentToast(res.error.message);
      });
   }

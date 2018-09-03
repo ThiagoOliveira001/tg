@@ -34,9 +34,18 @@ export class AuthServiceProvider {
 
   setUser(usuario: any){
     this.usuario = usuario;
+    this.storage.set('usuario',usuario);
   }
 
   getUser() {
     return this.usuario;
+  }
+
+  forgotPassword(email: string) {
+    return this.http.post(`${ENVIRONMENT.urlApi}/api/login/esqueceu-senha`,{email}).toPromise();
+  }
+
+  cadastrarUsuario(usuario: any) {
+    return this.http.post(`${ENVIRONMENT.urlApi}/api/usuario`,usuario).toPromise();
   }
 }
