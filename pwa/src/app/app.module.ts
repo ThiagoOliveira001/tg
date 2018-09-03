@@ -14,6 +14,8 @@ import { LoginPage } from '../pages/login/login';
 import { HttpClientModule } from '@angular/common/http';
 import { InterceptorModule } from '../providers/interceptor.module';
 import { ForgotPasswordPage } from '../pages/forgot-password/forgot-password';
+import { CadastroUsuarioPageModule } from '../pages/cadastro-usuario/cadastro-usuario.module';
+import { CadastroUsuarioPage } from '../pages/cadastro-usuario/cadastro-usuario';
 
 @NgModule({
   declarations: [
@@ -27,6 +29,7 @@ import { ForgotPasswordPage } from '../pages/forgot-password/forgot-password';
     BrowserModule,
     HttpClientModule,
     InterceptorModule,
+    CadastroUsuarioPageModule, 
     IonicModule.forRoot(MyApp),
     IonicStorageModule.forRoot()
   ],
@@ -36,7 +39,8 @@ import { ForgotPasswordPage } from '../pages/forgot-password/forgot-password';
     HomePage,
     ListPage,
     LoginPage,
-    ForgotPasswordPage
+    ForgotPasswordPage,
+    CadastroUsuarioPage
   ],
   providers: [
     StatusBar,
