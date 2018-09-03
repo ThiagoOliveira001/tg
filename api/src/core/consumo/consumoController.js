@@ -1,10 +1,16 @@
 const repository = require('./consumoRepository');
 
 module.exports = {
-    selecionar
+    cadastrar,
+    buscarConsumoPorUsuario
 }
 
-async function selecionar(req, res) {
-    let retorno = await repository.selecionar();
-    res.status(200).json(retorno)
+async function cadastrar(req, res) {
+    await repository.cadastrar(req.body);
+    res.ok();
+}
+
+async function buscarConsumoPorUsuario(req, res) {
+    let retorno = await repository.buscarConsumoPorUsuario(req.user.id);
+    res.ok(retorno);
 }

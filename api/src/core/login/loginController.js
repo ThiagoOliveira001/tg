@@ -1,5 +1,6 @@
 const repository = require('./loginRepository'),
     service = require('./loginService'),
+    usuarioRepository = require("../usuario/usuarioRepository"),
     crypto = require("../../helpers/encrypt");
 
 module.exports = {
@@ -20,7 +21,7 @@ async function login(req, res) {
 }
 
 async function esqueceuSenha(req, res) {
-    let retorno = await repository.buscarUsuarioEmail(req.body.email);
+    let retorno = await usuarioRepository.buscarUsuarioEmailCpfCnpj(req.body);
 
     if(!retorno)
         throw { statusCode: 404, message: "Nenhum usuario encontrado" };

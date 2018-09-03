@@ -20,6 +20,15 @@ async function buscar(req, res) {
 }
 
 async function cadastrar(req, res) {
+    let retorno = await repository.buscarUsuarioEmailCpfCnpj(req.body);
+
+    if(retorno) {
+        if(retorno.cpfCnpj == req.body.cpfCnpj)
+            throw { statusCode: 409, message: "Já existe um usuario com esse CPF / CNPJ" };
+        else
+            throw { statusCode: 409, message: "Já existe um usuario com esse Email" };
+    }
+
     req.body.senha = crypto.encrypt(req.body.senha);
     await repository.cadastrar(req.body);
     res.ok();

@@ -1,9 +1,14 @@
 const Schema = require("./consumoSchema");
 
 module.exports = {
-    cadastrar
+    cadastrar,
+    buscarConsumoPorUsuario
 }
 
 async function cadastrar(consumo) {
     await Schema.create(consumo);
+}
+
+async function buscarConsumoPorUsuario(idUsuario) {
+    
 }

@@ -3,7 +3,7 @@ const { postgres } = require('../../../config/settings'),
 
 module.exports = {
     login,
-    buscarUsuarioEmail,
+    // buscarUsuarioEmail,
     alterarSenha
 }
 
@@ -21,11 +21,11 @@ async function login(user) {
         .asyncExecOne(procedures.login);
 }
 
-async function buscarUsuarioEmail(email) {
-    return pg.request()
-        .input('pEmail', email)
-        .asyncExecOne(procedures.buscarUsuarioEmail);
-}
+// async function buscarUsuarioEmail(email) {
+//     return pg.request()
+//         .input('pEmail', email)
+//         .asyncExecOne(procedures.buscarUsuarioEmail);
+// }
 
 async function alterarSenha(user) {
     await pg.request()

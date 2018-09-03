@@ -5,6 +5,12 @@ const ctrl = require('./consumoController'),
             routes: [
                 { method: 'post', controller: ctrl.cadastrar }
             ]
+        },
+        {
+            url: '/api/consumo/:idUsuario',
+            routes: [
+                { method: 'get', controller: ctrl.buscarConsumoPorUsuario }
+            ]
         }
     ];
 

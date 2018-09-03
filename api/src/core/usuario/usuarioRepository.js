@@ -1,11 +1,12 @@
-const { db } = require("../../../config/sequelize"),
+const { Sequelize } = require("../../../config/sequelize"),
     Usuario = require("./usuarioModel");
 
 module.exports = {
     selecionar,
     buscar,
     cadastrar,
-    alterar
+    alterar,
+    buscarUsuarioEmailCpfCnpj
 }
 
 async function selecionar(query) {
@@ -43,4 +44,15 @@ async function alterar(id, usuario) {
         dataNascimentoConstituicao: usuario.dataNascimentoConstituicao,
         rgInscricaoEstadual: usuario.rgInscricaoEstadual
     }, { where: { id: id } });
+}
+
+async function buscarUsuarioEmailCpfCnpj(usuario) {
+    return Usuario.findOne({ 
+        where: { 
+            [Sequelize.Op.or]: [
+                { email: usuario.email }, 
+                { cpfCnpj: usuario.cpfCnpj }
+            ]
+        } 
+    });
 }

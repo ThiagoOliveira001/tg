@@ -1,5 +1,5 @@
-const { postgres } = require("./settings");
-Sequelize = require("sequelize");
+const { postgres } = require("./settings"),
+    Sequelize = require("sequelize");
 
 const db = new Sequelize(postgres.database, postgres.user, postgres.password, {
     host: postgres.host,
