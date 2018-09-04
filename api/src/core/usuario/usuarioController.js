@@ -20,6 +20,7 @@ async function buscar(req, res) {
 }
 
 async function cadastrar(req, res) {
+    scope.isValid(req.body);
     let retorno = await repository.buscarUsuarioEmailCpfCnpj(req.body);
 
     if(retorno) {
@@ -35,6 +36,7 @@ async function cadastrar(req, res) {
 }
 
 async function alterar(req, res) {
+    scope.isValid(req.body);
     await repository.alterar(req.params.id, req.body);
     res.ok();
 }

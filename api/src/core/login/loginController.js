@@ -1,4 +1,5 @@
 const repository = require('./loginRepository'),
+    scope = require('./loginScope'),
     service = require('./loginService'),
     usuarioRepository = require("../usuario/usuarioRepository"),
     crypto = require("../../helpers/encrypt");
@@ -10,6 +11,7 @@ module.exports = {
 }
 
 async function login(req, res) {
+    scope.isValid(req.body);
     req.body.senha = crypto.encrypt(req.body.senha);
     let retorno = await repository.login(req.body);
 
@@ -21,6 +23,7 @@ async function login(req, res) {
 }
 
 async function esqueceuSenha(req, res) {
+    scope.esqueceuSenha(req.body);
     let retorno = await usuarioRepository.buscarUsuarioEmailCpfCnpj(req.body);
 
     if(!retorno)
@@ -31,6 +34,7 @@ async function esqueceuSenha(req, res) {
 }
 
 async function alterarSenha(req, res) {
+    scope.alterarSenha(req.body);
     service.validaExpiracaoToken(req.headers.authentication);
     req.body.novaSenha = crypto.encrypt(req.body.novaSenha);
     await repository.alterarSenha(req.body);
