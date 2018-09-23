@@ -17,72 +17,79 @@
   <ion-list>
     <ion-item>
       <ion-label>Tipo Pessoa</ion-label>
-      <ion-select [(ngModel)]="usuario.tipoPessoa">
+      <ion-select (click)="usuario = {}" id="select-pessoa" [(ngModel)]="usuario.tipoPessoa">
         <ion-option value="fisica">Fisica</ion-option>
         <ion-option value="juridica">Juridica</ion-option>
       </ion-select>
     </ion-item>
   </ion-list>
   <ion-list *ngIf="usuario.tipoPessoa == 'fisica'">
-    <ion-item>
-      <ion-input placeholder="Nome" [(ngModel)]="usuario.nomeRazaoSocial"></ion-input> 
+    <ion-item style="background-color: transparent">
+      <ion-input placeholder="Nome" [(ngModel)]="usuario.nomeRazaoSocial" required></ion-input> 
     </ion-item>
-    <ion-item>
-      <ion-input placeholder="Sobrenome" [(ngModel)]="usuario.sobrenomeFantasia"></ion-input>
+    <ion-item style="background-color: transparent">
+      <ion-input placeholder="Sobrenome" [(ngModel)]="usuario.sobrenomeFantasia" required></ion-input>
     </ion-item>
-    <ion-item>
-      <ion-input type="password" placeholder="Senha" [(ngModel)]="usuario.senha"></ion-input>
+    <ion-item style="background-color: transparent">
+      <ion-input type="password" placeholder="Senha" [(ngModel)]="usuario.senha" required></ion-input>
     </ion-item>
-    <ion-item>
-        <ion-input type="password" placeholder="Confirmar Senha" [(ngModel)]="confirma.senha"></ion-input>
+    <ion-item style="background-color: transparent">
+        <ion-input type="password" placeholder="Confirmar Senha" [(ngModel)]="confirma.senha" required></ion-input>
     </ion-item>
-    <ion-item>
-      <ion-input placeholder="CPF" [(ngModel)]="usuario.cpfCnpj"></ion-input>
+    <ion-item style="background-color: transparent">
+      <ion-input placeholder="CPF" [(ngModel)]="usuario.cpfCnpj" required></ion-input>
     </ion-item>
-    <ion-item>
-      <ion-input type="email" placeholder="Email" [(ngModel)]="usuario.email"></ion-input>
+    <ion-item style="background-color: transparent">
+      <ion-input type="email" placeholder="Email" [(ngModel)]="usuario.email" required></ion-input>
     </ion-item>
-    <ion-item>
-        <ion-input type="email" placeholder="Confirmar Email" [(ngModel)]="confirma.email"></ion-input>
-      </ion-item>
-    <ion-item>
-      <ion-input placeholder="RG" [(ngModel)]="usuario.rgInscricaoEstadual"></ion-input>
+    <ion-item style="background-color: transparent">
+        <ion-input type="email" placeholder="Confirmar Email" [(ngModel)]="confirma.email" required></ion-input>
     </ion-item>
-    <ion-item>
+    <ion-item style="background-color: transparent">
+      <ion-input placeholder="RG" [(ngModel)]="usuario.rgInscricaoEstadual" required></ion-input>
+    </ion-item>
+    <ion-item style="background-color: transparent">
       <ion-label>Data de Nascimento</ion-label>
-      <ion-datetime maxDate="01/01/2000" displayFormat="MM/DD/YYYY" [(ngModel)]="usuario.dataNascimentoConstituicao"></ion-datetime>
+      <ion-datetime maxDate="01/01/2000"  min="1940" max="2000" displayFormat="MM/DD/YYYY" [(ngModel)]="usuario.dataNascimentoConstituicao"
+        monthNames="Janeiro, Fevereiro, Mar\u00e7o, Abril, Maio, Junho, Julho, Agosto, Setembro, Outubro, Novembro, Dezembro"
+        monthShortNames="jan, fev, mar, abr, mai, jun, jul, ago, set, out, nov, dez"
+        dayNames="domingo, segunda, ter\u00e7a, quarta, quinta, sexta, sabado"
+        dayShortNames="dom, seg, ter, qua, qui, sex, sab"
+        required
+      >
+      </ion-datetime>
     </ion-item>
-    <button ion-button (click)="cadastrar()" block>SALVAR</button>
+    <button style="margin-top: 5px" ion-button (click)="cadastrar()" block>SALVAR</button>
   </ion-list>
   <ion-list *ngIf="usuario.tipoPessoa == 'juridica'">
-      <ion-item>
+      <ion-item style="background-color: transparent">
           <ion-input placeholder="Razao Social" [(ngModel)]="usuario.nomeRazaoSocial"></ion-input> 
         </ion-item>
-        <ion-item>
+        <ion-item style="background-color: transparent">
           <ion-input placeholder="Fantasia" [(ngModel)]="usuario.sobrenomeFantasia"></ion-input>
         </ion-item>
-        <ion-item>
+        <ion-item style="background-color: transparent">
           <ion-input type="password" placeholder="Senha" [(ngModel)]="usuario.senha"></ion-input>
         </ion-item>
-        <ion-item>
+        <ion-item style="background-color: transparent">
             <ion-input type="password" placeholder="Confirmar Senha" [(ngModel)]="confirma.senha"></ion-input>
         </ion-item>
-        <ion-item>
+        <ion-item style="background-color: transparent">
           <ion-input placeholder="CNPJ" [(ngModel)]="usuario.cpfCnpj"></ion-input>
         </ion-item>
-        <ion-item>
+        <ion-item style="background-color: transparent">
           <ion-input placeholder="Email" [(ngModel)]="usuario.email"></ion-input>
         </ion-item>
-        <ion-item>
+        <ion-item style="background-color: transparent">
             <ion-input type="email" placeholder="Confirmar Email" [(ngModel)]="confirma.email"></ion-input>
         </ion-item>
-        <ion-item>
+        <ion-item style="background-color: transparent">
           <ion-input placeholder="IE" [(ngModel)]="usuario.rgInscricaoEstadual"></ion-input>
         </ion-item>
-        <ion-item>
+        <ion-item style="background-color: transparent">
           <ion-label>Data de Constituicao</ion-label>
           <ion-datetime displayFormat="MM/DD/YYYY" [(ngModel)]="usuario.dataNascimentoConstituicao"></ion-datetime>
         </ion-item>
-        <button ion-button (click)="cadastrar()" block>SALVAR</button>
+        <button style="margin-top: 5px" ion-button (click)="cadastrar()" block>SALVAR</button>
   </ion-list>
 </ion-content>
