@@ -17,6 +17,7 @@ import { AuthServiceProvider } from '../../providers/auth-service/auth-service';
 export class CadastroUsuarioPage {
   usuario: any = {}; 
   tipoPessoa: string;
+  dataMaxima:string = `${ new Date().getFullYear() - 18}-${ new Date().getMonth() + 1 }-${ new Date().getDate() }`;
   confirma: any = {};
 
   constructor(
@@ -27,7 +28,6 @@ export class CadastroUsuarioPage {
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad CadastroUsuarioPage');
   }
 
   cadastrar() {
@@ -36,7 +36,7 @@ export class CadastroUsuarioPage {
     } else if(this.usuario.senha != this.confirma.senha) {
       return this.presentToast('Senha não confirmada');
     }
-
+    console.log(this.usuario);
     this._service.cadastrarUsuario(this.usuario).then((data: any) => {
       this.presentToast(data.message);
     }).catch((res: any) => {

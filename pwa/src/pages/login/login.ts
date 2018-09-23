@@ -36,13 +36,14 @@ export class LoginPage {
   }
 
   logar() { 
-     this._authService.logar(this.loginData).then((data: any) => {
-        this._authService.setUser(data.usuario);
-        this._authService.setToken(data.token);
-        this.navCtrl.setRoot(HomePage);
-     }).catch((res:any) => {
-      this.presentToast(res.error.message);
-     });
+    //  this._authService.logar(this.loginData).then((data: any) => {
+    //     this._authService.setUser(data.usuario);
+    //     this._authService.setToken(data.token);
+    //     this.navCtrl.setRoot(HomePage);
+    //  }).catch((res:any) => {
+    //   this.presentToast(res.error.message);
+    //  });
+    this.navCtrl.setRoot(HomePage);
   }
 
   forgotPassword() {
@@ -56,4 +57,6 @@ export class LoginPage {
     });
     toast.present();
   }
+
+  
 }
