@@ -3,7 +3,7 @@
 CAUTION: Do not modify this file unless you know what you are doing.
          Unexpected results may occur if the code is changed deliberately.
 -->
-<dbmodel pgmodeler-ver="0.9.0" last-position="0,47" last-zoom="1"
+<dbmodel pgmodeler-ver="0.9.0" last-position="0,0" last-zoom="1"
 	 default-owner="postgres">
 <database name="tg">
 </database>
@@ -113,9 +113,12 @@ CAUTION: Do not modify this file unless you know what you are doing.
 <table name="hardware">
 	<schema name="public"/>
 	<role name="postgres"/>
-	<position x="560" y="260"/>
+	<position x="605" y="311"/>
 	<column name="id" not-null="true">
 		<type name="serial" length="0"/>
+	</column>
+	<column name="idendereco">
+		<type name="integer" length="0"/>
 	</column>
 	<column name="idusuario" not-null="true">
 		<type name="integer" length="0"/>
@@ -127,27 +130,6 @@ CAUTION: Do not modify this file unless you know what you are doing.
 		<type name="varchar" length="20"/>
 	</column>
 	<constraint name="pk_hardware" type="pk-constr" table="public.hardware">
-		<columns names="id" ref-type="src-columns"/>
-	</constraint>
-</table>
-
-<table name="consumo">
-	<schema name="public"/>
-	<role name="postgres"/>
-	<position x="540" y="440"/>
-	<column name="id" not-null="true">
-		<type name="serial" length="0"/>
-	</column>
-	<column name="idhardware" not-null="true">
-		<type name="integer" length="0"/>
-	</column>
-	<column name="data" not-null="true">
-		<type name="timestamp" length="0"/>
-	</column>
-	<column name="valor" not-null="true">
-		<type name="decimal" length="8" precision="2"/>
-	</column>
-	<constraint name="pk_consumo" type="pk-constr" table="public.consumo">
 		<columns names="id" ref-type="src-columns"/>
 	</constraint>
 </table>
@@ -170,9 +152,9 @@ CAUTION: Do not modify this file unless you know what you are doing.
 	<columns names="id" ref-type="dst-columns"/>
 </constraint>
 
-<constraint name="fk_consumo_hardware" type="fk-constr" comparison-type="MATCH FULL"
-	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="public.hardware" table="public.consumo">
-	<columns names="idhardware" ref-type="src-columns"/>
+<constraint name="fk_hardware_endereco" type="fk-constr" comparison-type="MATCH FULL"
+	 upd-action="NO ACTION" del-action="NO ACTION" ref-table="public.endereco" table="public.hardware">
+	<columns names="idendereco" ref-type="src-columns"/>
 	<columns names="id" ref-type="dst-columns"/>
 </constraint>
 
@@ -186,14 +168,14 @@ CAUTION: Do not modify this file unless you know what you are doing.
 	 dst-table="public.usuario"
 	 src-required="false" dst-required="false"/>
 
-<relationship name="rel_consumo_hardware" type="relfk"
-	 src-table="public.consumo"
-	 dst-table="public.hardware"
-	 src-required="false" dst-required="false"/>
-
 <relationship name="rel_hardware_usuario" type="relfk"
 	 src-table="public.hardware"
 	 dst-table="public.usuario"
+	 src-required="false" dst-required="false"/>
+
+<relationship name="rel_hardware_endereco" type="relfk"
+	 src-table="public.hardware"
+	 dst-table="public.endereco"
 	 src-required="false" dst-required="false"/>
 
 </dbmodel>
