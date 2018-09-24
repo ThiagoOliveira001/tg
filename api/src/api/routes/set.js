@@ -25,8 +25,24 @@ function publicRoutes(public, controller) {
             await controller(req, res, next);
         }
         catch (ex) {
-            console.error(ex.message);
-            res.error(ex.statusCode || 500, ex.message);
+            let error;
+
+            switch(ex.statusCode) {
+                case 400:
+                    error = ex.messages || ['Verifique os campos'];
+                    break;
+
+                case 404:
+                    error = ex.message || 'Recurso não encontrado.';
+                    break;
+
+                default:
+                    error = 'Erro Interno.'
+                    break;
+            }
+
+            console.error(ex.stack || error);
+            res.error(ex.statusCode || 500, error);
         }
     }
 }

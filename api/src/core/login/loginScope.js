@@ -1,18 +1,18 @@
 const Scope = require("../../helpers/scope");
 
 module.exports = {
-    isValid,
+    login,
     alterarSenha,
     esqueceuSenha
 }
 
-function isValid(login) {
-    const scope = new Scope(login);
+function login(usuario) {
+    const scope = new Scope(usuario);
 
     scope
-        .field().isNotNull()
-        .field().isNotNull()
-        .end()
+        .field('email').isNotNull()
+        .field('senha').isNotNull()
+        .end();
 }
 
 function alterarSenha(usuario) {
@@ -21,10 +21,10 @@ function alterarSenha(usuario) {
     scope
         .field('senha').isNotNull()
         .field('confirmarSenha').isNotNull()
-        .end()
+        .end();
 
     if(usuario.senha != usuario.confirmarSenha)
-        throw { statusCode: 400, message: "Senhas incompatíveis" };
+        throw { statusCode: 400, messages: "Senhas incompatíveis" };
 }
 
 function esqueceuSenha(usuario) {

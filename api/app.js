@@ -22,7 +22,7 @@ const express = require('express'),
         require('./src/api/routes/ping')(app);
         require('./src/api/routes/set')(app);
 
-        // require('./mcu')(config);
+        require('./mcu')(config);
 
         app.listen(config.port, () => {
             console.log(`server on: ${config.port}`);

@@ -1,25 +1,27 @@
-<!--
-  Generated template for the LoginPage page.
+<ion-content padding>
+	<div style="margin-top: 60%">
+		<ion-list>
+			<form #loginForm="ngForm" (ngSubmit)="logar()">
+				<ion-item style="background-color: transparent">
+					<ion-label floating>Email</ion-label>
+					<ion-input type="email" name="email" [(ngModel)]="loginData.email" #email="ngModel" required></ion-input>
+				</ion-item>
 
-  See http://ionicframework.com/docs/components/#navigation for more info on
-  Ionic pages and navigation.
--->
-  <ion-content padding>
-    <div style="margin-top: 60%">
-      <ion-list>
-        <ion-item style="background-color: transparent">
-          <ion-input type="email" placeholder="Usuario" [(ngModel)]="loginData.email"></ion-input>
-        </ion-item>
-        <ion-item style="background-color: transparent">
-          <ion-input type="password" placeholder="Senha" [(ngModel)]="loginData.senha"></ion-input>
-        </ion-item>
-        <ion-item style="background-color: transparent" text-center>
-          <button ion-button (click)="logar()" (press)="logar()" block>ENTRAR</button>
-          <button ion-button (click)="chamaTelaCadastro()" block>CADASTRAR</button>
-          <button id="forgot-password" (click)="forgotPassword()">
-            <a>Esqueci minha senha</a>
-          </button>
-        </ion-item>
-      </ion-list>
-    </div>
-  </ion-content>
+				<ion-item style="background-color: transparent">
+					<ion-label floating>Senha</ion-label>
+					<ion-input type="password" name="senha" [(ngModel)]="loginData.senha" #senha="ngModel" required></ion-input>
+				</ion-item>
+
+				<button ion-button type="submit" block>ENTRAR</button>
+				<!-- <button [disabled]="!loginForm.form.valid" ion-button type="submit" block>ENTRAR</button> -->
+				<button ion-button type="button" (click)="chamaTelaCadastro()" block>CADASTRAR</button>
+
+				<ion-item style="background-color: transparent" text-center>
+					<button type="button" id="forgot-password" (click)="forgotPassword()">
+						<a>Esqueci minha senha</a>
+					</button>
+				</ion-item>
+			</form>
+		</ion-list>
+	</div>
+</ion-content>

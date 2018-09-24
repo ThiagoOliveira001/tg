@@ -1,0 +1,19 @@
+<ion-header>
+  <ion-navbar color="primary">
+    <ion-title>Campos Inválidos</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+    <ion-list>
+      <ion-item *ngFor="let item of invalidParameters">
+        <ion-label>{{ item }}</ion-label>
+      </ion-item>
+
+      <ion-item>
+        <button (click)="goBack()" ion-button block>
+          VOLTAR
+        </button>
+      </ion-item>
+    </ion-list>
+</ion-content>

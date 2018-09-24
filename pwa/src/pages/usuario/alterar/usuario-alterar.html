@@ -1,0 +1,65 @@
+<ion-header>
+	<ion-navbar color="primary">
+		<button ion-button menuToggle>
+			<ion-icon name="menu"></ion-icon>
+		</button>
+		<ion-title>Home</ion-title>
+	</ion-navbar>
+</ion-header>
+
+<ion-content padding>
+	<ion-list>
+		<form #usuarioForm="ngForm" (ngSubmit)="alterar()">
+
+			<ion-item>
+				<ion-label>Tipo Pessoa</ion-label>
+				<ion-select id="select-pessoa" name="tipoPessoa" [(ngModel)]="usuario.tipoPessoa">
+					<ion-option value="F">Fisica</ion-option>
+					<ion-option value="J">Juridica</ion-option>
+				</ion-select>
+			</ion-item>
+
+			<ion-item>
+				<ion-label *ngIf="usuario.tipoPessoa == 'F'" floating>Nome</ion-label>
+				<ion-label *ngIf="usuario.tipoPessoa == 'J'" floating>Razão Social</ion-label>
+				<ion-input type="text" name="nomeRazaoSocial" [(ngModel)]="usuario.nomeRazaoSocial" required></ion-input>
+			</ion-item>
+
+			<ion-item>
+				<ion-label *ngIf="usuario.tipoPessoa == 'F'" floating>Sobrenome</ion-label>
+				<ion-label *ngIf="usuario.tipoPessoa == 'J'" floating>Nome Fantasia</ion-label>
+				<ion-input type="text" name="sobrenomeFantasia" [(ngModel)]="usuario.sobrenomeFantasia" required></ion-input>
+			</ion-item>
+
+			<ion-item>
+				<ion-label *ngIf="usuario.tipoPessoa == 'F'" floating>CPF</ion-label>
+				<ion-label *ngIf="usuario.tipoPessoa == 'J'" floating>CNPJ</ion-label>
+				<ion-input type="text" name="cpfCnpj" [(ngModel)]="usuario.cpfCnpj" required></ion-input>
+			</ion-item>
+
+			<ion-item>
+				<ion-label *ngIf="usuario.tipoPessoa == 'F'" floating>RG</ion-label>
+				<ion-label *ngIf="usuario.tipoPessoa == 'J'" floating>Inscricao Estadual</ion-label>
+				<ion-input type="text" name="rgInscricaoEstadual" [(ngModel)]="usuario.rgInscricaoEstadual" required></ion-input>
+			</ion-item>
+
+			<ion-item>
+				<ion-label floating>Email</ion-label>
+				<ion-input type="email" name="email" [(ngModel)]="usuario.email" required></ion-input>
+			</ion-item>
+
+			<!-- min="1940" max="2000"  -->
+			<!-- [maxDate]="usuario.tipoPessoa == 'F' ? dataMaxima : dataAtual"  -->
+
+			<ion-item style="margin-top: 20px;">
+				<ion-label *ngIf="usuario.tipoPessoa == 'F'">Data de Nascimento</ion-label>
+				<ion-label *ngIf="usuario.tipoPessoa == 'J'">Data de Constituicao</ion-label>
+				<ion-datetime [min]="usuario.tipoPessoa == 'F' ? '1940' : '2000'" [max]="usuario.tipoPessoa == 'F' ? '2000' : '1940'"
+				 displayFormat="DD/MM/YYYY" name="dataNascimentoConstituicao" [(ngModel)]="usuario.dataNascimentoConstituicao"></ion-datetime>
+			</ion-item>
+
+			<button [disabled]="!usuarioForm.form.valid" type="submit" ion-button block>SALVAR</button>
+			<button type="button" ion-button block (click)="goBack()">VOLTAR</button>
+		</form>
+	</ion-list>
+</ion-content>

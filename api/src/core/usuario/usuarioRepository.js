@@ -40,7 +40,6 @@ async function alterar(id, usuario) {
         email: usuario.email,
         nomeRazaoSocial: usuario.nomeRazaoSocial,
         sobrenomeFantasia: usuario.sobrenomeFantasia,
-        senha: usuario.senha,
         dataNascimentoConstituicao: usuario.dataNascimentoConstituicao,
         rgInscricaoEstadual: usuario.rgInscricaoEstadual
     }, { where: { id: id } });

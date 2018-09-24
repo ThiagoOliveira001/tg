@@ -1,62 +1,66 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams, ToastController } from 'ionic-angular';
+import { NavController, ToastController, LoadingController } from 'ionic-angular';
 import { AuthServiceProvider } from '../../providers/auth-service/auth-service';
 import { HomePage } from '../home/home';
 import { ForgotPasswordPage } from '../forgot-password/forgot-password';
-import { CadastroUsuarioPage } from '../cadastro-usuario/cadastro-usuario';
-
-/**
- * Generated class for the LoginPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
+import { CadastrarUsuarioPage } from '../usuario/cadastrar/usuario-cadastrar';
 
 @Component({
-  selector: 'page-login',
-  templateUrl: 'login.html',
+	selector: 'page-login',
+	templateUrl: 'login.html',
 })
 export class LoginPage {
 
-  constructor(
-    public navCtrl: NavController, 
-    public navParams: NavParams,
-    public _authService: AuthServiceProvider,
-    public toastCtrl: ToastController
-  ) {}
+	constructor(
+		private navCtrl: NavController,
+		private authService: AuthServiceProvider,
+		private toastCtrl: ToastController,
+		private loadingCtrl: LoadingController
+	) { }
 
-  loginData: any = {};
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad LoginPage');
-  }
+	loginData: any = {};
+	loading: any;
 
+	ionViewDidLoad() {
+	}
 
-  chamaTelaCadastro() {  
-      this.navCtrl.push(CadastroUsuarioPage);
-  }
+	chamaTelaCadastro() {
+		this.navCtrl.push(CadastrarUsuarioPage);
+	}
 
-  logar() { 
-    //  this._authService.logar(this.loginData).then((data: any) => {
-    //     this._authService.setUser(data.usuario);
-    //     this._authService.setToken(data.token);
-    //     this.navCtrl.setRoot(HomePage);
-    //  }).catch((res:any) => {
-    //   this.presentToast(res.error.message);
-    //  });
-    this.navCtrl.setRoot(HomePage);
-  }
+	logar() {
+		// this.presentLoading();
 
-  forgotPassword() {
-    this.navCtrl.push(ForgotPasswordPage);
-  }
-//banana
-  presentToast(msg: string) {
-    const toast = this.toastCtrl.create({
-      message: msg,
-      duration: 3000
-    });
-    toast.present();
-  }
+		// this.authService.logar(this.loginData).then((data: any) => {
+		// 	this.authService.setUser(data.content.usuario);
+		// 	this.authService.setToken(data.content.token);
+		// 	this.navCtrl.setRoot(HomePage);
+		// 	this.loading.dismiss();
+		// }).catch((res: any) => {
+		// 	this.loading.dismiss();
+		// 	this.presentToast('Ocorreu um erro no servidor');
+		// });
+		this.navCtrl.setRoot(HomePage);
+	}
 
-  
+	forgotPassword() {
+		this.navCtrl.push(ForgotPasswordPage);
+	}
+
+	presentToast(text: string) {
+		const toast = this.toastCtrl.create({
+			message: text,
+			duration: 3000
+		});
+		toast.present();
+	}
+
+	presentLoading() {
+		this.loading = this.loadingCtrl.create({
+			spinner: 'crescent',
+			content: 'Aguarde...'
+		});
+
+		this.loading.present();
+	}
 }

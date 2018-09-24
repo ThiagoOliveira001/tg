@@ -3,21 +3,15 @@ import { Injectable } from '@angular/core';
 import { ENVIRONMENT } from '../../environment/environment';
 import { Storage } from '@ionic/storage';
 
-/*
-  Generated class for the AuthServiceProvider provider.
-
-  See https://angular.io/guide/dependency-injection for more info on providers
-  and Angular DI.
-*/
 @Injectable()
 export class AuthServiceProvider {
   private usuario: any = null;
 
-  constructor(public http: HttpClient,public storage: Storage) {
+  constructor(public http: HttpClient, public storage: Storage) {
   }
 
   logar(loginData: any) {
-    return this.http.post(`${ENVIRONMENT.urlApi}/api/login`,loginData).toPromise();
+    return this.http.post(`${ENVIRONMENT.urlApi}/api/login`, loginData).toPromise();
   }
 
   logout() {
@@ -25,16 +19,16 @@ export class AuthServiceProvider {
   }
 
   authenticate() {
-     
+
   }
 
   setToken(token: any) {
-    this.storage.set(ENVIRONMENT.tokenNome,token);
+    this.storage.set(ENVIRONMENT.tokenNome, token);
   }
 
-  setUser(usuario: any){
+  setUser(usuario: any) {
     this.usuario = usuario;
-    this.storage.set('usuario',usuario);
+    this.storage.set('usuario', usuario);
   }
 
   getUser() {
@@ -42,10 +36,6 @@ export class AuthServiceProvider {
   }
 
   forgotPassword(email: string) {
-    return this.http.post(`${ENVIRONMENT.urlApi}/api/login/esqueceu-senha`,{email}).toPromise();
-  }
-
-  cadastrarUsuario(usuario: any) {
-    return this.http.post(`${ENVIRONMENT.urlApi}/api/usuario`,usuario).toPromise();
+    return this.http.post(`${ENVIRONMENT.urlApi}/api/login/esqueceu-senha`, { email }).toPromise();
   }
 }
