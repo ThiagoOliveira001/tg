@@ -1,9 +1,11 @@
 #include <ESP8266WiFi.h>//As libs precisam ser baixadas pelo gerenciador de bibliotecas
 #include <PubSubClient.h>
 #include <EmonLib.h>
+#include <NTPClient.h>
+#include <WiFiUdp.h>
 
-#define SSID_REDE "rede"
-#define SENHA_REDE "password"
+#define SSID_REDE "Casa Moreira"
+#define SENHA_REDE "lucas0307"
 #define INTERVALO_ENVIO_MQTT 10000
 
 #define TOPICO_SUBSCRIBE "energia"
@@ -11,9 +13,18 @@
 
 #define ID_MQTT  "pc3"
 
+WiFiUDP ntpUDP;
+
+String horas;
+int16_t utc = -3;
+uint32_t currentMillis = 0;
+uint32_t previousMillis = 0;
+
+NTPClient timeClient(ntpUDP, "a.st1.ntp.br", utc*3600, 60000);
+
 EnergyMonitor SCT013;
 
-const char* BROKER_MQTT = "endereco broker";
+const char* BROKER_MQTT = "192.168.1.18";
 int BROKER_PORT = 1883;
 //const char* BROKER_USER = "fatec";
 //const char* BROKER_PASSWORD = "teste";
@@ -122,6 +133,7 @@ void setup()
     initWiFi();
     initMQTT();
     Serial.println("Consumo energia ESP8266 NodeMCU");
+    timeClient.begin();
 }
  
 //loop principal
@@ -130,11 +142,12 @@ void loop()
     char  MsgEletricidadeMQTT[50];
     double Irms;
     float energiaAtual;
-
+    float x = (float)rand()/(float)(100);
+    horas = timeClient.getFormattedTime();
+    timeClient.forceUpdate();
     VerificaConexoesWiFIEMQTT();
-    
     energiaAtual = FazLeituraEletricidade();
-    sprintf(MsgEletricidadeMQTT, "{\"id\": %d, \"energia\": 123 }", id);
+    sprintf(MsgEletricidadeMQTT, "{\"id\": %d, \"energia\": %f, \"hora\": %s }", id, x,horas.c_str());
     MQTT.publish(TOPICO_PUBLISH,MsgEletricidadeMQTT);
     //verifica se é o momento de enviar informações via MQTT
     /*if ((millis() - lastMQTTSendTime) > INTERVALO_ENVIO_MQTT)
