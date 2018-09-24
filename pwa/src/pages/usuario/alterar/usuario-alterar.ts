@@ -35,7 +35,7 @@ export class AlterarUsuarioPage {
 
     let user = this.authService.getUser();
 
-    this.service.buscar(1).subscribe((data: any) => {
+    this.service.buscar(user.id).subscribe((data: any) => {
       this.usuario = data.content;
       this.loading.dismiss();
     }, (res) => {
@@ -52,7 +52,7 @@ export class AlterarUsuarioPage {
       this.presentToast('Alterado com Sucesso');
     }).catch((res: any) => {
       this.loading.dismiss();
-      this.presentToast('Ocorreu um erro no servidor');
+      this.handlerError(res);
     });
   }
 

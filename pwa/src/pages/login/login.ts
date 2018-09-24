@@ -29,22 +29,36 @@ export class LoginPage {
 	}
 
 	logar() {
-		// this.presentLoading();
+		this.presentLoading();
 
-		// this.authService.logar(this.loginData).then((data: any) => {
-		// 	this.authService.setUser(data.content.usuario);
-		// 	this.authService.setToken(data.content.token);
-		// 	this.navCtrl.setRoot(HomePage);
-		// 	this.loading.dismiss();
-		// }).catch((res: any) => {
-		// 	this.loading.dismiss();
-		// 	this.presentToast('Ocorreu um erro no servidor');
-		// });
-		this.navCtrl.setRoot(HomePage);
+		this.authService.logar(this.loginData).then((data: any) => {
+			this.authService.setUser(data.content.usuario);
+			this.authService.setToken(data.content.token);
+			this.navCtrl.setRoot(HomePage);
+			this.loading.dismiss();
+		}).catch((res: any) => {
+			this.loading.dismiss();
+			this.handlerError(res);
+		});
+
+		// this.navCtrl.setRoot(HomePage);
 	}
 
 	forgotPassword() {
 		this.navCtrl.push(ForgotPasswordPage);
+	}
+
+	handlerError(res) {
+		switch (res.status) {
+
+			case 404:
+				this.presentToast(res.error.message);
+				break;
+
+			default:
+				this.presentToast('Ocorreu um erro no servidor');
+				break;
+		}
 	}
 
 	presentToast(text: string) {
