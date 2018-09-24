@@ -4,8 +4,8 @@
 #include <NTPClient.h>
 #include <WiFiUdp.h>
 
-#define SSID_REDE "Casa Moreira"
-#define SENHA_REDE "lucas0307"
+#define SSID_REDE "rede"
+#define SENHA_REDE "password"
 #define INTERVALO_ENVIO_MQTT 10000
 
 #define TOPICO_SUBSCRIBE "energia"
