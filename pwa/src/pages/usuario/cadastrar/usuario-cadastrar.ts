@@ -9,11 +9,12 @@ import { InvalidParametersPage } from '../../invalid-parameters/invalid-paramete
    templateUrl: 'usuario-cadastrar.html',
 })
 export class CadastrarUsuarioPage {
-   
+
    usuario: any = {
       tipoPessoa: 'F'
    };
-   dataMaxima: string = `${new Date().getFullYear() - 18}-${new Date().getMonth() + 1}-${new Date().getDate()}`;
+   dataAtual: Date = new Date();
+   dataMinima: String;
    loading: any;
    modal: any;
 
@@ -28,6 +29,13 @@ export class CadastrarUsuarioPage {
 
    ionViewDidLoad() {
    }
+
+   setDataMinima() {
+      if(this.usuario.tipoPessoa == 'F')
+        this.dataMinima = `${this.dataAtual.getFullYear() - 18}`;
+      else
+        this.dataMinima = `${this.dataAtual.getFullYear()}`;
+    }
 
    cadastrar() {
       this.presentLoading();
@@ -51,7 +59,7 @@ export class CadastrarUsuarioPage {
    }
 
    handlerError(res) {
-      switch(res.status) {
+      switch (res.status) {
 
          case 400:
             this.presentModal(res.error.message);

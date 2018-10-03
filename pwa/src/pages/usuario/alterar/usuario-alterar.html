@@ -10,10 +10,9 @@
 <ion-content padding>
 	<ion-list>
 		<form #usuarioForm="ngForm" (ngSubmit)="alterar()">
-
 			<ion-item>
 				<ion-label>Tipo Pessoa</ion-label>
-				<ion-select id="select-pessoa" name="tipoPessoa" [(ngModel)]="usuario.tipoPessoa">
+				<ion-select id="select-pessoa" name="tipoPessoa" [(ngModel)]="usuario.tipoPessoa" (ngModelChange)="setDataMaxima()" required>
 					<ion-option value="F">Fisica</ion-option>
 					<ion-option value="J">Juridica</ion-option>
 				</ion-select>
@@ -48,14 +47,11 @@
 				<ion-input type="email" name="email" [(ngModel)]="usuario.email" required></ion-input>
 			</ion-item>
 
-			<!-- min="1940" max="2000"  -->
-			<!-- [maxDate]="usuario.tipoPessoa == 'F' ? dataMaxima : dataAtual"  -->
-
 			<ion-item style="margin-top: 20px;">
 				<ion-label *ngIf="usuario.tipoPessoa == 'F'">Data de Nascimento</ion-label>
 				<ion-label *ngIf="usuario.tipoPessoa == 'J'">Data de Constituicao</ion-label>
-				<ion-datetime [min]="usuario.tipoPessoa == 'F' ? '1940' : '2000'" [max]="usuario.tipoPessoa == 'F' ? '2000' : '1940'"
-				 displayFormat="DD/MM/YYYY" name="dataNascimentoConstituicao" [(ngModel)]="usuario.dataNascimentoConstituicao"></ion-datetime>
+				<ion-datetime max="dataMaxima"
+				 displayFormat="DD/MM/YYYY" name="dataNascimentoConstituicao" [(ngModel)]="usuario.dataNascimentoConstituicao" required></ion-datetime>
 			</ion-item>
 
 			<button [disabled]="!usuarioForm.form.valid" type="submit" ion-button block>SALVAR</button>

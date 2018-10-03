@@ -11,9 +11,11 @@ import { InvalidParametersPage } from '../../invalid-parameters/invalid-paramete
 })
 export class AlterarUsuarioPage {
 
-  usuario: any = {};
-  dataMaximaPessoaFisica: string = `${new Date().getFullYear() - 18}-${new Date().getMonth() + 1}-${new Date().getDate()}`;
-  dataAtual: String = new Date().toLocaleDateString();
+  usuario: any = {
+    tipoPessoa: 'F'
+  };
+  dataAtual: Date = new Date();
+  dataMinima: String;
   loading: any;
   modal: any;
 
@@ -28,6 +30,13 @@ export class AlterarUsuarioPage {
 
   ionViewDidLoad() {
     this.buscar();
+  }
+
+  setDataMinima() {
+    if(this.usuario.tipoPessoa == 'F')
+      this.dataMinima = `${this.dataAtual.getFullYear() - 18}`;
+    else
+      this.dataMinima = `${this.dataAtual.getFullYear()}`;
   }
 
   buscar() {
