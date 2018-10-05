@@ -36,7 +36,9 @@ class Scope {
         else if(this.valor.length == 14)
             return this._isCnpj();
         else
-            return this._errors.push(`${this.campo} inválido. Verifique`);
+            this._setError(`${this.campo} inválido. Verifique`);
+
+        return this;
     }
 
     _isCpf() {
@@ -55,14 +57,14 @@ class Scope {
             this.valor == "77777777777" ||
             this.valor == "88888888888" ||
             this.valor == "99999999999") 
-                return this._errors.push("CPF inválido. Verifique!");
+                return this._setError("CPF inválido. Verifique!");
 
         for (let i = 1; i <= 9; i++) Soma = Soma + parseInt(this.valor.substring(i - 1, i)) * (11 - i);
         Resto = (Soma * 10) % 11;
 
         if ((Resto == 10) || (Resto == 11)) Resto = 0;
         if (Resto != parseInt(this.valor.substring(9, 10)))
-            return this._errors.push("CPF inválido. Verifique!");
+            return this._setError("CPF inválido. Verifique!");
 
         Soma = 0;
         for (let i = 1; i <= 10; i++) Soma = Soma + parseInt(this.valor.substring(i - 1, i)) * (12 - i);
@@ -70,7 +72,7 @@ class Scope {
 
         if ((Resto == 10) || (Resto == 11)) Resto = 0;
         if (Resto != parseInt(this.valor.substring(10, 11)))
-            return this._errors.push("CPF inválido. Verifique!");
+            return this._setError("CPF inválido. Verifique!");
 
         return this;
     }
@@ -88,7 +90,7 @@ class Scope {
             this.valor == "77777777777777" ||
             this.valor == "88888888888888" ||
             this.valor == "99999999999999") 
-                return this._errors.push("CNPJ inválido. Verifique!");
+                return this._setError("CNPJ inválido. Verifique!");
 
         let tamanho = this.valor.length - 2;
         let numeros = this.valor.substring(0, tamanho);
@@ -104,7 +106,7 @@ class Scope {
 
         let resultado = soma % 11 < 2 ? 0 : 11 - soma % 11;
         if (resultado != digitos.charAt(0))
-            return this._errors.push("CNPJ inválido. Verifique!");
+            return this._setError("CNPJ inválido. Verifique!");
 
         tamanho = tamanho + 1;
         numeros = this.valor.substring(0, tamanho);
@@ -119,8 +121,13 @@ class Scope {
         
         resultado = soma % 11 < 2 ? 0 : 11 - soma % 11;
         if (resultado != digitos.charAt(1))
-            return this._errors.push("CNPJ inválido. Verifique!");
+            return this._setError("CNPJ inválido. Verifique!");
 
+        return this;
+    }
+
+    _setError(message) {
+        this._errors.push(message);
         return this;
     }
 }

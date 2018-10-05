@@ -6,6 +6,7 @@ module.exports = {
     buscar,
     cadastrar,
     alterar,
+    alterarSenha,
     buscarUsuarioEmailCpfCnpj
 }
 
@@ -54,4 +55,18 @@ async function buscarUsuarioEmailCpfCnpj(usuario) {
             ]
         } 
     });
+}
+
+// async function alterarSenha(usuario) {
+//     await pg.request()
+//         .input('pId', usuario.id)
+//         .input('pEmail', usuario.email)
+//         .input('pNovaSenha', usuario.senha)
+//         .asyncExec(procedures.alterarSenha);
+// }
+
+async function alterarSenha(senha) {
+    await Usuario.update({
+        senha: senha,
+    }, { where: { id: id } });
 }

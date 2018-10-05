@@ -2,7 +2,9 @@ const Scope = require("../../helpers/scope");
 
 module.exports = {
     cadastrar,
-    alterar
+    alterar,
+    alterarSenha,
+    esqueceuSenha
 }
 
 function cadastrar(usuario) {
@@ -37,5 +39,25 @@ function alterar(usuario) {
         .field('sobrenomeFantasia').isNotNull()
         .field('dataNascimentoConstituicao').isNotNull()
         .field('rgInscricaoEstadual').isNotNull()
+        .end()
+}
+
+function alterarSenha(usuario) {
+    const scope = new Scope(usuario);
+
+    scope
+        .field('senha').isNotNull()
+        .field('confirmarSenha').isNotNull()
+        .end();
+
+    if(usuario.senha != usuario.confirmarSenha)
+        throw { statusCode: 400, messages: "Senhas incompatíveis" };
+}
+
+function esqueceuSenha(usuario) {
+    const scope = new Scope(usuario);
+
+    scope
+        .field('email').isNotNull()
         .end()
 }

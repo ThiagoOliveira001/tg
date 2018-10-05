@@ -13,6 +13,18 @@ const ctrl = require('./usuarioController'),
                 { method: 'get', controller: ctrl.buscar },
                 { method: 'put', controller: ctrl.alterar },
             ]
+        },
+        {
+            url: '/api/usuario/:id/alterar-senha',
+            routes: [
+                { method: 'put', controller: ctrl.alterarSenha }
+            ]
+        },
+        {
+            url: '/api/usuario/:id/esqueceu-senha',
+            routes: [
+                { method: 'put', controller: ctrl.esqueceuSenha, public: true }
+            ]
         }
     ];
 

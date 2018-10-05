@@ -3,14 +3,8 @@ const { whatsAppUrl } = require("../../../config/settings"),
     crypto = require("../../helpers/encrypt");
 
 module.exports = {
-    esqueceuSenha,
     gerarToken,
     validaExpiracaoToken
-}
-
-async function esqueceuSenha(usuario) {
-    usuario.url = `http://www.google.com.br/esqueceu-senha/${gerarToken(usuario)}`;
-    await email.send(usuario, 'esqueceuSenha.html');
 }
 
 function gerarToken(user) {

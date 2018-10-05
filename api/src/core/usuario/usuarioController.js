@@ -1,4 +1,5 @@
 const repository = require("./usuarioRepository"),
+    service = require("./usuarioService"),
     scope = require("./usuarioScope"),
     crypto = require("../../helpers/encrypt");
 
@@ -6,7 +7,9 @@ module.exports = {
     selecionar,
     buscar,
     cadastrar,
-    alterar
+    alterar,
+    alterarSenha,
+    esqueceuSenha
 }
 
 async function selecionar(req, res) {
@@ -38,5 +41,23 @@ async function cadastrar(req, res) {
 async function alterar(req, res) {
     scope.alterar(req.body);
     await repository.alterar(req.params.id, req.body);
+    res.ok();
+}
+
+async function alterarSenha(req, res) {
+    scope.alterarSenha(req.body);
+    req.body.novaSenha = crypto.encrypt(req.body.novaSenha);
+    await repository.alterarSenha(req.body);
+    res.ok();
+}
+
+async function esqueceuSenha(req, res) {
+    scope.esqueceuSenha(req.body);
+    let retorno = await repository.buscarUsuarioEmailCpfCnpj(req.body);
+
+    if(!retorno)
+        throw { statusCode: 404, message: "Nenhum usuario encontrado" };
+
+    await service.esqueceuSenha(retorno);
     res.ok();
 }
