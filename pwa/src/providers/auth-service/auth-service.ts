@@ -18,10 +18,6 @@ export class AuthServiceProvider {
     this.storage.remove(ENVIRONMENT.tokenNome);
   }
 
-  authenticate() {
-
-  }
-
   setToken(token: any) {
     this.storage.set(ENVIRONMENT.tokenNome, token);
   }
@@ -33,9 +29,5 @@ export class AuthServiceProvider {
 
   getUser() {
     return this.usuario;
-  }
-
-  forgotPassword(email: string) {
-    return this.http.post(`${ENVIRONMENT.urlApi}/api/login/esqueceu-senha`, { email }).toPromise();
   }
 }

@@ -13,22 +13,23 @@ import { UsuarioModule } from '../pages/usuario/usuario.module';
 // Providers
 import { AuthServiceProvider } from '../providers/auth-service/auth-service';
 import { UsuarioProvider } from '../providers/usuario/usuario.service';
+import { HomeProvider } from '../providers/home/home.service';
 
 // Pages
 import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
-import { ListPage } from '../pages/list/list';
 import { LoginPage } from '../pages/login/login';
 import { ForgotPasswordPage } from '../pages/forgot-password/forgot-password';
+import { ChangePasswordPage } from '../pages/change-password/change-password';
 import { InvalidParametersPage } from '../pages/invalid-parameters/invalid-parameters';
 
 @NgModule({
   declarations: [
     MyApp,
     HomePage,
-    ListPage,
     LoginPage,
     ForgotPasswordPage,
+    ChangePasswordPage,
     InvalidParametersPage
   ],
   imports: [
@@ -43,9 +44,9 @@ import { InvalidParametersPage } from '../pages/invalid-parameters/invalid-param
   entryComponents: [
     MyApp,
     HomePage,
-    ListPage,
     LoginPage,
     ForgotPasswordPage,
+    ChangePasswordPage,
     InvalidParametersPage
   ],
   providers: [
@@ -53,7 +54,8 @@ import { InvalidParametersPage } from '../pages/invalid-parameters/invalid-param
     SplashScreen,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     AuthServiceProvider,
-    UsuarioProvider
+    UsuarioProvider,
+    HomeProvider
   ]
 })
 export class AppModule {}

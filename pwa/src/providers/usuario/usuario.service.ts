@@ -7,8 +7,7 @@ import { AuthServiceProvider } from '../auth-service/auth-service';
 export class UsuarioProvider {
 
   constructor(
-    public http: HttpClient,
-    private _authService: AuthServiceProvider
+    public http: HttpClient
   ) { }
 
   buscar(id: Number) {
@@ -21,5 +20,13 @@ export class UsuarioProvider {
 
   alterar(usuario: any) {
     return this.http.put(`${ENVIRONMENT.urlApi}/api/usuario/${usuario.id}`, usuario).toPromise();
+  }
+
+  alterarSenha(usuario: any) {
+    return this.http.put(`${ENVIRONMENT.urlApi}/api/usuario/${usuario.id}/alterar-senha`, usuario).toPromise();
+  }
+
+  esqueceuSenha(idUsuario: string, email: string) {
+    return this.http.post(`${ENVIRONMENT.urlApi}/api/usuario/${idUsuario}/esqueceu-senha`, { email }).toPromise();
   }
 }

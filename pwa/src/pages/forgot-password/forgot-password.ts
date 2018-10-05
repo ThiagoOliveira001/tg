@@ -1,36 +1,48 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams, ToastController } from 'ionic-angular';
+import { ToastController, LoadingController } from 'ionic-angular';
+import { UsuarioProvider } from '../../providers/usuario/usuario.service';
 import { AuthServiceProvider } from '../../providers/auth-service/auth-service';
 
-/**
- * Generated class for the ForgotPasswordPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
-
-@Component({ 
+@Component({
   selector: 'page-forgot-password',
   templateUrl: 'forgot-password.html',
 })
+
 export class ForgotPasswordPage {
   email: string;
+  loading: any;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, 
-    private _service: AuthServiceProvider,
-    private toastCtrl: ToastController) {
-  }
+  constructor(
+    private service: UsuarioProvider,
+    private authServiceProvider: AuthServiceProvider,
+    private toastCtrl: ToastController,
+    private loadingCtrl: LoadingController,
+  ) { }
 
   ionViewDidLoad() {
   }
 
-  forgotPassword() {
-    console.log(this.email);
-    this._service.forgotPassword(this.email).then((data: any) => {
-      this.presentToast(data.message);
+  esqueceuSenha() {
+    this.presentLoading();
+
+    let user = this.authServiceProvider.getUser();
+
+    this.service.esqueceuSenha(user.id, this.email).then(() => {
+      this.loading.dismiss();
+      this.presentToast('Email enviado');
     }).catch((res: any) => {
-      this.presentToast(res.error.message);
+      this.loading.dismiss();
+      this.presentToast('Ocorreu um erro no servidor');
     });
+  }
+
+  presentLoading() {
+    this.loading = this.loadingCtrl.create({
+      spinner: 'crescent',
+      content: 'Aguarde...'
+    });
+
+    this.loading.present();
   }
 
   presentToast(text: string) {
@@ -38,6 +50,7 @@ export class ForgotPasswordPage {
       message: text,
       duration: 3000
     });
+
     toast.present();
   }
 }

@@ -5,92 +5,92 @@ import { LoginPage } from '../../login/login';
 import { InvalidParametersPage } from '../../invalid-parameters/invalid-parameters';
 
 @Component({
-   selector: 'page-usuario-cadastrar',
-   templateUrl: 'usuario-cadastrar.html',
+  selector: 'page-usuario-cadastrar',
+  templateUrl: 'usuario-cadastrar.html',
 })
 export class CadastrarUsuarioPage {
 
-   usuario: any = {
-      tipoPessoa: 'F'
-   };
-   dataAtual: Date = new Date();
-   dataMinima: String;
-   loading: any;
-   modal: any;
+  usuario: any = {
+    tipoPessoa: 'F'
+  };
+  dataAtual: Date = new Date();
+  dataMinima: String;
+  loading: any;
+  modal: any;
 
-   constructor(
-      private navCtrl: NavController,
-      private service: UsuarioProvider,
-      private toastCtrl: ToastController,
-      private loadingCtrl: LoadingController,
-      private modalCtrl: ModalController
-   ) { }
+  constructor(
+    private navCtrl: NavController,
+    private service: UsuarioProvider,
+    private toastCtrl: ToastController,
+    private loadingCtrl: LoadingController,
+    private modalCtrl: ModalController
+  ) { }
 
 
-   ionViewDidLoad() {
-   }
+  ionViewDidLoad() {
+  }
 
-   setDataMinima() {
-      if(this.usuario.tipoPessoa == 'F')
-        this.dataMinima = `${this.dataAtual.getFullYear() - 18}`;
-      else
-        this.dataMinima = `${this.dataAtual.getFullYear()}`;
+  setDataMinima() {
+    if (this.usuario.tipoPessoa == 'F')
+      this.dataMinima = `${this.dataAtual.getFullYear() - 18}`;
+    else
+      this.dataMinima = `${this.dataAtual.getFullYear()}`;
+  }
+
+  cadastrar() {
+    this.presentLoading();
+
+    if (this.usuario.email != this.usuario.confirmarEmail) {
+      this.loading.dismiss();
+      return this.presentToast('Emails não conferem');
+    } else if (this.usuario.senha != this.usuario.confirmarSenha) {
+      this.loading.dismiss();
+      return this.presentToast('Senhas não conferem');
     }
 
-   cadastrar() {
-      this.presentLoading();
+    this.service.cadastrar(this.usuario).then((data: any) => {
+      this.loading.dismiss();
+      this.presentToast(data.message);
+      this.navCtrl.setRoot(LoginPage);
+    }).catch((res: any) => {
+      this.loading.dismiss();
+      this.handlerError(res);
+    });
+  }
 
-      if (this.usuario.email != this.usuario.confirmarEmail) {
-         this.loading.dismiss();
-         return this.presentToast('Emails não conferem');
-      } else if (this.usuario.senha != this.usuario.confirmarSenha) {
-         this.loading.dismiss();
-         return this.presentToast('Senhas não conferem');
-      }
+  handlerError(res) {
+    switch (res.status) {
 
-      this.service.cadastrar(this.usuario).then((data: any) => {
-         this.loading.dismiss();
-         this.presentToast(data.message);
-         this.navCtrl.setRoot(LoginPage);
-      }).catch((res: any) => {
-         this.loading.dismiss();
-         this.handlerError(res);
-      });
-   }
+      case 400:
+        this.presentModal(res.error.message);
+        break;
 
-   handlerError(res) {
-      switch (res.status) {
+      default:
+        this.presentToast('Ocorreu um erro no servidor');
+        break;
+    }
+  }
 
-         case 400:
-            this.presentModal(res.error.message);
-            break;
+  presentToast(text: string) {
+    let toast = this.toastCtrl.create({
+      message: text,
+      duration: 3000
+    });
 
-         default:
-            this.presentToast('Ocorreu um erro no servidor');
-            break;
-      }
-   }
+    toast.present();
+  }
 
-   presentToast(text: string) {
-      let toast = this.toastCtrl.create({
-         message: text,
-         duration: 3000
-      });
+  presentLoading() {
+    this.loading = this.loadingCtrl.create({
+      spinner: 'crescent',
+      content: 'Aguarde...'
+    });
 
-      toast.present();
-   }
+    this.loading.present();
+  }
 
-   presentLoading() {
-      this.loading = this.loadingCtrl.create({
-         spinner: 'crescent',
-         content: 'Aguarde...'
-      });
-
-      this.loading.present();
-   }
-
-   presentModal(errors) {
-      this.modal = this.modalCtrl.create(InvalidParametersPage, { errors });
-      this.modal.present();
-   }
+  presentModal(errors) {
+    this.modal = this.modalCtrl.create(InvalidParametersPage, { errors });
+    this.modal.present();
+  }
 }
