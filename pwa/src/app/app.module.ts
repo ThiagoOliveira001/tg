@@ -22,6 +22,7 @@ import { LoginPage } from '../pages/login/login';
 import { ForgotPasswordPage } from '../pages/forgot-password/forgot-password';
 import { ChangePasswordPage } from '../pages/change-password/change-password';
 import { InvalidParametersPage } from '../pages/invalid-parameters/invalid-parameters';
+import { ConsumoProvider } from '../providers/consumo/consumo.service';
 
 @NgModule({
   declarations: [
@@ -55,7 +56,8 @@ import { InvalidParametersPage } from '../pages/invalid-parameters/invalid-param
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     AuthServiceProvider,
     UsuarioProvider,
-    HomeProvider
+    HomeProvider,
+    ConsumoProvider
   ]
 })
 export class AppModule {}

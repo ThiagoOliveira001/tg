@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
+import { ConsumoProvider } from '../../providers/consumo/consumo.service';
 
 @Component({
   selector: 'page-home',
@@ -8,10 +9,19 @@ import { NavController } from 'ionic-angular';
 export class HomePage {
   consumoAtual: any = 0;
   today: any = Date.now();
+  connection: any;
 
+  constructor(public navCtrl: NavController, private _service: ConsumoProvider) {
+    //this.valores();
+  }
 
-  constructor(public navCtrl: NavController) {
-    this.valores();
+  ionViewDidLoad() {
+    this._service.startSocket().then(() => {
+      this.connection = this._service.getConsumo().subscribe((data: any) => {
+        this.consumoAtual = data.valor;
+        console.log(data);
+      })
+    })
   }
 
   valores() {
