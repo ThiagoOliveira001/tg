@@ -26,7 +26,7 @@ export class UsuarioProvider {
     return this.http.put(`${ENVIRONMENT.urlApi}/api/usuario/${usuario.id}/alterar-senha`, usuario).toPromise();
   }
 
-  esqueceuSenha(idUsuario: string, email: string) {
-    return this.http.post(`${ENVIRONMENT.urlApi}/api/usuario/${idUsuario}/esqueceu-senha`, { email }).toPromise();
+  esqueceuSenha(email: string) {
+    return this.http.post(`${ENVIRONMENT.urlApi}/api/usuario/esqueceu-senha`, { email }).toPromise();
   }
 }

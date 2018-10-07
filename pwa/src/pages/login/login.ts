@@ -18,7 +18,10 @@ export class LoginPage {
 		private loadingCtrl: LoadingController
 	) { }
 
-	loginData: any = {};
+	loginData: any = {
+		email: "moreira.g.thiago@gmail.com",
+		senha: "teste123"
+	};
 	loading: any;
 
 	ionViewDidLoad() {

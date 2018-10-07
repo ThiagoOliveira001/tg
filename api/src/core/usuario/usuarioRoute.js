@@ -21,9 +21,9 @@ const ctrl = require('./usuarioController'),
             ]
         },
         {
-            url: '/api/usuario/:id/esqueceu-senha',
+            url: '/api/usuario/esqueceu-senha',
             routes: [
-                { method: 'put', controller: ctrl.esqueceuSenha, public: true }
+                { method: 'post', controller: ctrl.esqueceuSenha, public: true }
             ]
         }
     ];

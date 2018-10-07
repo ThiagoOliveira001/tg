@@ -1,10 +1,14 @@
 const email = require("../../helpers/email");
 
 module.exports = {
-    esqueceuSenha
+    esqueceuSenha,
+    gerarSenhaAleatoria
 }
 
 async function esqueceuSenha(usuario) {
-    usuario.senhaTemporaria = '1234';
     await email.send(usuario, 'esqueceuSenha.html');
+}
+
+function gerarSenhaAleatoria() {
+    return '1234';
 }

@@ -58,6 +58,8 @@ async function esqueceuSenha(req, res) {
     if(!retorno)
         throw { statusCode: 404, message: "Nenhum usuario encontrado" };
 
+    retorno.senha = service.gerarSenhaAleatoria();
+    await repository.esqueceuSenha(req.params.id, retonro.senha);
     await service.esqueceuSenha(retorno);
     res.ok();
 }

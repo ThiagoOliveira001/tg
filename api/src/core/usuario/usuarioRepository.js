@@ -6,8 +6,9 @@ module.exports = {
     buscar,
     cadastrar,
     alterar,
+    buscarUsuarioEmailCpfCnpj,
     alterarSenha,
-    buscarUsuarioEmailCpfCnpj
+    esqueceuSenha
 }
 
 async function selecionar(query) {
@@ -65,8 +66,16 @@ async function buscarUsuarioEmailCpfCnpj(usuario) {
 //         .asyncExec(procedures.alterarSenha);
 // }
 
-async function alterarSenha(senha) {
+async function alterarSenha(id, senha) {
     await Usuario.update({
         senha: senha,
+        senhaTemporaria: false
+    }, { where: { id: id } });
+}
+
+async function esqueceuSenha(id, senha) {
+    await Usuario.update({
+        senha: senha,
+        senhaTemporaria: true
     }, { where: { id: id } });
 }

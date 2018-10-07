@@ -12,8 +12,8 @@
 					<ion-input type="password" name="senha" [(ngModel)]="loginData.senha" #senha="ngModel" required></ion-input>
 				</ion-item>
 
-				<!-- <button ion-button type="submit" block>ENTRAR</button> -->
-				<button [disabled]="!loginForm.form.valid" ion-button type="submit" block>ENTRAR</button>
+				<button ion-button type="submit" block>ENTRAR</button>
+				<!-- <button [disabled]="!loginForm.form.valid" ion-button type="submit" block>ENTRAR</button> -->
 				<button ion-button type="button" (click)="chamaTelaCadastro()" block>CADASTRAR</button>
 
 				<ion-item style="background-color: transparent" text-center>

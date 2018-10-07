@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { ToastController, LoadingController } from 'ionic-angular';
 import { UsuarioProvider } from '../../providers/usuario/usuario.service';
-import { AuthServiceProvider } from '../../providers/auth-service/auth-service';
 
 @Component({
   selector: 'page-forgot-password',
@@ -9,12 +8,11 @@ import { AuthServiceProvider } from '../../providers/auth-service/auth-service';
 })
 
 export class ForgotPasswordPage {
-  email: string;
+  email: string = "moreira.g.thiago@gmail.com";
   loading: any;
 
   constructor(
     private service: UsuarioProvider,
-    private authServiceProvider: AuthServiceProvider,
     private toastCtrl: ToastController,
     private loadingCtrl: LoadingController,
   ) { }
@@ -25,9 +23,7 @@ export class ForgotPasswordPage {
   esqueceuSenha() {
     this.presentLoading();
 
-    let user = this.authServiceProvider.getUser();
-
-    this.service.esqueceuSenha(user.id, this.email).then(() => {
+    this.service.esqueceuSenha(this.email).then(() => {
       this.loading.dismiss();
       this.presentToast('Email enviado');
     }).catch((res: any) => {

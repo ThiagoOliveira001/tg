@@ -7,8 +7,9 @@ const Usuario = db.define('usuario', {
     nomeRazaoSocial: Sequelize.STRING,
     sobrenomeFantasia: Sequelize.STRING,
     senha: Sequelize.STRING,
+    senhaTemporaria: Sequelize.BOOLEAN,
     dataNascimentoConstituicao: Sequelize.STRING,
-    rgInscricaoEstadual: Sequelize.STRING
+    rgInscricaoEstadual: Sequelize.STRING,
 }, { timestamps: false });
 
 module.exports = Usuario;
