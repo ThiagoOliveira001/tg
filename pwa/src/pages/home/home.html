@@ -8,7 +8,7 @@
 </ion-header>
 
 <ion-content padding>
-  <div style="display: flex;justify-content:center">
+  <!-- <div style="display: flex;justify-content:center">
     <h1>Consumindo</h1>
   </div>
   <div style="display: flex;justify-content:center">
@@ -19,5 +19,20 @@
   </ion-fab>
   <div style="display: flex;justify-content:center">
       <h1>{{today | date:'hh:mm:ss'}}</h1>
+  </div> -->
+  <div id="container">
+    <div #consumo>
+      <div>
+        <p style="font-size: 4em;font-family: digital">
+          AGORA {{consumoAtual.toFixed(2)}}W
+        </p>
+      </div>
+      <div>
+        <hr style="background: black">
+        <p style="font-size: 3em; text-align: center;font-family: digital">
+          {{today | date: 'hh:mm:ss'}}
+        </p>
+      </div>
+    </div>
   </div>
 </ion-content>

@@ -23,6 +23,7 @@ import { ForgotPasswordPage } from '../pages/forgot-password/forgot-password';
 import { ChangePasswordPage } from '../pages/change-password/change-password';
 import { InvalidParametersPage } from '../pages/invalid-parameters/invalid-parameters';
 import { ConsumoProvider } from '../providers/consumo/consumo.service';
+import { ConsumoPage } from '../pages/consumo/consumo';
 
 @NgModule({
   declarations: [
@@ -31,7 +32,8 @@ import { ConsumoProvider } from '../providers/consumo/consumo.service';
     LoginPage,
     ForgotPasswordPage,
     ChangePasswordPage,
-    InvalidParametersPage
+    InvalidParametersPage,
+    ConsumoPage
   ],
   imports: [
     BrowserModule,
@@ -48,7 +50,8 @@ import { ConsumoProvider } from '../providers/consumo/consumo.service';
     LoginPage,
     ForgotPasswordPage,
     ChangePasswordPage,
-    InvalidParametersPage
+    InvalidParametersPage,
+    ConsumoPage
   ],
   providers: [
     StatusBar,

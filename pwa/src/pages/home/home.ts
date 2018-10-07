@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild, ElementRef } from '@angular/core';
 import { NavController } from 'ionic-angular';
 import { ConsumoProvider } from '../../providers/consumo/consumo.service';
 
@@ -7,7 +7,7 @@ import { ConsumoProvider } from '../../providers/consumo/consumo.service';
   templateUrl: 'home.html'
 })
 export class HomePage {
-  consumoAtual: any = 0;
+  consumoAtual: any = 2.4;
   today: any = Date.now();
   connection: any;
 
@@ -19,10 +19,11 @@ export class HomePage {
     this._service.startSocket().then(() => {
       this.connection = this._service.getConsumo().subscribe((data: any) => {
         this.consumoAtual = data.valor;
-        console.log(data);
+        this.today = data.data;
       })
-    })
+    });
   }
+
 
   valores() {
     setInterval(() => {

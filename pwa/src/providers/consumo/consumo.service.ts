@@ -38,4 +38,12 @@ export class ConsumoProvider {
         });
         return observable;
     }
+
+    getConsumoOf(filtro: any) {
+        return Observable
+        .fromPromise(this.storage.get('usuario'))
+        .flatMap((user: any) => {
+            return this.http.get(`${ENVIRONMENT.urlApi}/api/consumo/${user.id}`, { params: { inicio: filtro.dataInicial, fim: filtro.dataFinal } });
+        });   
+    }
 }

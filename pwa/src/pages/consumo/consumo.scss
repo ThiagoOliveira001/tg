@@ -1,0 +1,13 @@
+page-consumo {
+    form {
+        display: flex;
+        justify-content: center;
+        ion-fab {
+            position: absolute;
+            right: 0;
+        }
+        ion-input {
+            border-bottom: solid 2px gray;
+        }
+    }
+}   
