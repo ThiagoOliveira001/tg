@@ -7,5 +7,5 @@ const consumoSchema = new mongoose.Schema({
     "valor": Number
 });
 
-mongoose.model("consumo", consumoSchema);
-module.exports = consumoSchema;
+
+module.exports = mongoose.model("consumo", consumoSchema);
