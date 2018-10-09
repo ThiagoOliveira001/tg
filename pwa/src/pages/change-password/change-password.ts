@@ -5,60 +5,95 @@ import { AuthServiceProvider } from '../../providers/auth-service/auth-service';
 import { UsuarioProvider } from '../../providers/usuario/usuario.service';
 
 @Component({
-  selector: 'page-change-password',
-  templateUrl: 'change-password.html',
+   selector: 'page-change-password',
+   templateUrl: 'change-password.html',
 })
 export class ChangePasswordPage {
-  usuario: any;
-  loading: any;
+   usuario: any = {};
+   loading: any;
+   oldPasswordType: String = 'password';
+   oldPasswordIcon: String = 'eye';
+   newPasswordType: String = 'password';
+   newPasswordIcon: String = 'eye';
+   confirmPasswordType: String = 'password';
+   confirmPasswordIcon: String = 'eye';
 
-  constructor(
-    public navCtrl: NavController,
-    public navParams: NavParams,
-    private service: UsuarioProvider,
-    private authProvider: AuthServiceProvider,
-    private toastCtrl: ToastController,
-    private loadingCtrl: LoadingController,
-  ) {
-  }
+   constructor(
+      public navCtrl: NavController,
+      public navParams: NavParams,
+      private service: UsuarioProvider,
+      private authProvider: AuthServiceProvider,
+      private toastCtrl: ToastController,
+      private loadingCtrl: LoadingController,
+   ) {
+   }
 
-  ionViewDidLoad() {
-  }
+   ionViewDidLoad() {
+   }
 
-  changePassword() {
-    this.presentLoading();
+   showHideOldPass() {
+      this.oldPasswordType = this.oldPasswordType === 'text' ? 'password' : 'text';
+      this.oldPasswordIcon = this.oldPasswordIcon === 'eye-off' ? 'eye' : 'eye-off';
+   }
 
-    if (this.usuario.senha != this.usuario.confirmarSenha) {
-      this.loading.dismiss();
-      return this.presentToast('Senhas não conferem');
-    }
+   showHideNewPass() {
+      this.newPasswordType = this.newPasswordType === 'text' ? 'password' : 'text';
+      this.newPasswordIcon = this.newPasswordIcon === 'eye-off' ? 'eye' : 'eye-off';
+   }
 
-    Object.assign(this.usuario, this.authProvider.getUser());
+   showHideConfirmPass() {
+      this.confirmPasswordType = this.confirmPasswordType === 'text' ? 'password' : 'text';
+      this.confirmPasswordIcon = this.confirmPasswordIcon === 'eye-off' ? 'eye' : 'eye-off';
+   }
 
-    this.service.alterarSenha(this.usuario).then((data: any) => {
-      this.loading.dismiss();
-      this.navCtrl.setRoot(LoginPage);
-      this.presentToast('Senha alterada com sucesso');
-    }).catch((res: any) => {
-      this.loading.dismiss();
-      this.presentToast('Ocorreu um erro no servidor');
-    });
-  }
+   changePassword() {
+      this.presentLoading();
 
-  presentToast(text: string) {
-    let toast = this.toastCtrl.create({
-      message: text,
-      duration: 3000
-    });
-    toast.present();
-  }
+      if (this.usuario.novaSenha != this.usuario.confirmarSenha) {
+         this.loading.dismiss();
+         return this.presentToast('Senhas não conferem');
+      }
 
-  presentLoading() {
-    this.loading = this.loadingCtrl.create({
-      spinner: 'crescent',
-      content: 'Aguarde...'
-    });
+      Object.assign(this.usuario, this.authProvider.getUser());
 
-    this.loading.present();
-  }
+      this.service.alterarSenha(this.usuario).then(() => {
+         this.loading.dismiss();
+         this.navCtrl.setRoot(LoginPage);
+         this.presentToast('Senha alterada com sucesso');
+      }).catch((res: any) => {
+         this.loading.dismiss();
+         this.handlerError(res);
+      });
+   }
+
+   handlerError(res) {
+      switch (res.status) {
+
+         case 401:
+            this.presentToast('Senha antiga não compativel');
+            break;
+
+         default:
+            this.presentToast('Ocorreu um erro no servidor');
+            break;
+      }
+   }
+
+   presentToast(text: string) {
+      let toast = this.toastCtrl.create({
+         message: text,
+         duration: 3000
+      });
+
+      toast.present();
+   }
+
+   presentLoading() {
+      this.loading = this.loadingCtrl.create({
+         spinner: 'crescent',
+         content: 'Aguarde...'
+      });
+
+      this.loading.present();
+   }
 }

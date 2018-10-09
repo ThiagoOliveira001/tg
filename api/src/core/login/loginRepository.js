@@ -1,18 +1,18 @@
-const { postgres } = require('../../../config/settings'),
-    pg = require('smn-pg')(postgres);
+const { Sequelize } = require("../../../config/sequelize"),
+    Usuario = require("../usuario/usuarioModel");
 
 module.exports = {
     login
 }
 
-const procedures = {
-    login: 'public.login',
-    // alterarSenha: 'public.alterarSenha'
-}
-
 async function login(usuario) {
-    return pg.request()
-        .input('pEmail', usuario.email)
-        .input('pSenha', usuario.senha)
-        .asyncExecOne(procedures.login);
+    let retorno = await Usuario.findOne({
+        attributes: ['id', 'nomeRazaoSocial', 'sobrenomeFantasia', 'senhaTemporaria'],
+        where: {
+            email: usuario.email,
+            senha: usuario.senha
+        }
+    });
+
+    return retorno ? retorno.dataValues : null;
 }

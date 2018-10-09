@@ -23,7 +23,7 @@ function createOptions(dados, templateName) {
     let html = fs.readFileSync(`./src/resources/email/${templateName}`, 'utf8');
 
     for(let prop in dados) {
-        html = html.replace(`{{ ${prop} }}\g`, dados[prop]);
+        html = html.replace(`@${prop}`, dados[prop]);
     }
 
     return {

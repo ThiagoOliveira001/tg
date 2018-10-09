@@ -32,8 +32,8 @@ function publicRoutes(public, controller) {
                     error = ex.messages || ['Verifique os campos'];
                     break;
 
-                case 404:
-                    error = ex.message || 'Recurso não encontrado.';
+                case 401, 404, 409:
+                    error = ex.message;
                     break;
 
                 default:
@@ -42,7 +42,7 @@ function publicRoutes(public, controller) {
             }
 
             console.error(ex.stack || error);
-            res.error(ex.statusCode || 500, error);
+            res.error(ex.statusCode || 500, error, ex.content);
         }
     }
 }

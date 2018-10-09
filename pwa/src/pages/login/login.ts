@@ -4,6 +4,7 @@ import { AuthServiceProvider } from '../../providers/auth-service/auth-service';
 import { HomePage } from '../home/home';
 import { ForgotPasswordPage } from '../forgot-password/forgot-password';
 import { CadastrarUsuarioPage } from '../usuario/cadastrar/usuario-cadastrar';
+import { ChangePasswordPage } from '../change-password/change-password';
 
 @Component({
 	selector: 'page-login',
@@ -18,17 +19,21 @@ export class LoginPage {
 		private loadingCtrl: LoadingController
 	) { }
 
-	loginData: any = {
-		email: "moreira.g.thiago@gmail.com",
-		senha: "teste123"
-	};
+	loginData: any = {};
 	loading: any;
+	passwordType: String = 'password';
+	passwordIcon: String = 'eye';
 
 	ionViewDidLoad() {
 	}
 
 	chamaTelaCadastro() {
 		this.navCtrl.push(CadastrarUsuarioPage);
+	}
+
+	showHidePass() {
+		this.passwordType = this.passwordType === 'text' ? 'password' : 'text';
+		this.passwordIcon = this.passwordIcon === 'eye-off' ? 'eye' : 'eye-off';
 	}
 
 	logar() {
@@ -54,8 +59,13 @@ export class LoginPage {
 	handlerError(res) {
 		switch (res.status) {
 
+			case 401:
+				this.authService.setUser(res.error.content);
+				this.navCtrl.push(ChangePasswordPage);
+				break;
+
 			case 404:
-				this.presentToast(res.error.message);
+				this.presentToast('Usuario e/ou senha inválidos');
 				break;
 
 			default:
@@ -69,6 +79,7 @@ export class LoginPage {
 			message: text,
 			duration: 3000
 		});
+
 		toast.present();
 	}
 

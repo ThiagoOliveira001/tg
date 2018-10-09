@@ -3,7 +3,7 @@
 		<button ion-button menuToggle>
 			<ion-icon name="menu"></ion-icon>
 		</button>
-		<ion-title>Home</ion-title>
+		<ion-title>Meu Usuario</ion-title>
 	</ion-navbar>
 </ion-header>
 
@@ -12,7 +12,8 @@
 		<form #usuarioForm="ngForm" (ngSubmit)="alterar()">
 			<ion-item>
 				<ion-label>Tipo Pessoa</ion-label>
-				<ion-select id="select-pessoa" name="tipoPessoa" [(ngModel)]="usuario.tipoPessoa" (ngModelChange)="setDataMaxima()" required>
+				<ion-select id="select-pessoa" name="tipoPessoa" [(ngModel)]="usuario.tipoPessoa" (ngModelChange)="resetarData()"
+				 required>
 					<ion-option value="F">Fisica</ion-option>
 					<ion-option value="J">Juridica</ion-option>
 				</ion-select>
@@ -50,8 +51,9 @@
 			<ion-item style="margin-top: 20px;">
 				<ion-label *ngIf="usuario.tipoPessoa == 'F'">Data de Nascimento</ion-label>
 				<ion-label *ngIf="usuario.tipoPessoa == 'J'">Data de Constituicao</ion-label>
-				<ion-datetime max="dataMaxima"
-				 displayFormat="DD/MM/YYYY" name="dataNascimentoConstituicao" [(ngModel)]="usuario.dataNascimentoConstituicao" required></ion-datetime>
+				<ion-datetime [min]="usuario.tipoPessoa == 'F' ? anoAtual - 100 : 1940" [max]="usuario.tipoPessoa == 'F' ? anoAtual - 18 : anoAtual"
+				 displayFormat="DD/MM/YYYY" name="dataNascimentoConstituicao" [(ngModel)]="usuario.dataNascimentoConstituicao"
+				 required></ion-datetime>
 			</ion-item>
 
 			<button [disabled]="!usuarioForm.form.valid" type="submit" ion-button block>SALVAR</button>

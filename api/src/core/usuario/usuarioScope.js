@@ -11,7 +11,7 @@ function cadastrar(usuario) {
     const scope = new Scope(usuario);
 
     scope
-        .field('cpfCnpj').isCpfCnpj()
+        .field('cpfCnpj').isCpfCnpj(usuario.tipoPessoa)
         .field('tipoPessoa').isNotNull()
         .field('email').isNotNull()
         .field('nomeRazaoSocial').isNotNull()
@@ -32,7 +32,7 @@ function alterar(usuario) {
     const scope = new Scope(usuario);
 
     scope
-        .field('cpfCnpj').isCpfCnpj()
+        .field('cpfCnpj').isCpfCnpj(usuario.tipoPessoa)
         .field('tipoPessoa').isNotNull()
         .field('email').isNotNull()
         .field('nomeRazaoSocial').isNotNull()
@@ -46,11 +46,12 @@ function alterarSenha(usuario) {
     const scope = new Scope(usuario);
 
     scope
-        .field('senha').isNotNull()
+        .field('senhaAntiga').isNotNull()
+        .field('novaSenha').isNotNull()
         .field('confirmarSenha').isNotNull()
         .end();
 
-    if(usuario.senha != usuario.confirmarSenha)
+    if(usuario.novaSenha != usuario.confirmarSenha)
         throw { statusCode: 400, messages: "Senhas incompatíveis" };
 }
 

@@ -25,18 +25,20 @@ class Scope {
             throw { statusCode: this.status, messages: this._errors };
     }
 
-    isCpfCnpj() {
+    isCpfCnpj(tipoPessoa) {
         if(!this.valor) {
             this._errors.push(`${this.campo} é obrigatório`);
             return this;
         }
 
-        if(this.valor.length == 11)
+        if(tipoPessoa == 'F' && this.valor.length == 11)
             return this._isCpf();
-        else if(this.valor.length == 14)
+        else if(tipoPessoa == 'J' && this.valor.length == 14)
             return this._isCnpj();
-        else
+        else {
+            this.campo = tipoPessoa == 'F' ? 'CPF' : 'CNPJ';
             this._setError(`${this.campo} inválido. Verifique`);
+        }
 
         return this;
     }

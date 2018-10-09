@@ -9,12 +9,15 @@ module.exports = {
 
 async function login(req, res) {
     scope.login(req.body);
-    req.body.senha = crypto.encrypt(req.body.senha);
-    let retorno = await repository.login(req.body);
+    req.body.senha = crypto.hash(req.body.senha);
+    let usuario = await repository.login(req.body);
 
-    if(!retorno)
+    if (!usuario)
         throw { statusCode: 404, message: 'Usuario e/ou Senha inválido.' };
 
-    let token = service.gerarToken(retorno);
-    res.ok({ usuario: retorno, token: token });
+    if (usuario.senhaTemporaria)
+        throw { statusCode: 401, message: 'Senha Expirada', content: usuario };
+
+    let token = service.gerarToken(usuario);
+    res.ok({ usuario, token });
 }

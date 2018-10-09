@@ -1,10 +1,12 @@
 const crypto = require('crypto'),
+    md5 = require("md5"),
     { token_pass } = require('../../config/settings'),
     algorithm = 'aes256';
 
 module.exports = {
     encrypt,
-    decrypt
+    decrypt,
+    hash
 };
 
 function encrypt(value) {
@@ -19,4 +21,8 @@ function decrypt(token) {
     let dec = decipher.update(token, 'hex', 'utf8');
     dec += decipher.final('utf8');
     return dec;
+}
+
+function hash(value) {
+    return md5(`!@${value}@!`);
 }

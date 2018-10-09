@@ -14,10 +14,10 @@ export class AlterarUsuarioPage {
   usuario: any = {
     tipoPessoa: 'F'
   };
-  dataAtual: Date = new Date();
-  dataMinima: String;
   loading: any;
   modal: any;
+  dataAtual: Date = new Date();
+  anoAtual: Number = this.dataAtual.getFullYear();
 
   constructor(
     private navCtrl: NavController,
@@ -32,11 +32,8 @@ export class AlterarUsuarioPage {
     this.buscar();
   }
 
-  setDataMinima() {
-    if(this.usuario.tipoPessoa == 'F')
-      this.dataMinima = `${this.dataAtual.getFullYear() - 18}`;
-    else
-      this.dataMinima = `${this.dataAtual.getFullYear()}`;
+  resetarData() {
+    this.usuario.dataNascimentoConstituicao = null;
   }
 
   buscar() {
@@ -74,6 +71,10 @@ export class AlterarUsuarioPage {
 
       case 400:
         this.presentModal(res.error.message);
+        break;
+
+      case 409:
+        this.presentToast(res.error.message);
         break;
 
       default:

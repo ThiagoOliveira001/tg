@@ -14,9 +14,13 @@ export class CadastrarUsuarioPage {
     tipoPessoa: 'F'
   };
   dataAtual: Date = new Date();
-  dataMinima: String;
+  anoAtual: Number = this.dataAtual.getFullYear();
   loading: any;
   modal: any;
+  passwordType: String = 'password';
+  passwordIcon: String = 'eye';
+  confirmPasswordType: String = 'password';
+	confirmPasswordIcon: String = 'eye';
 
   constructor(
     private navCtrl: NavController,
@@ -30,11 +34,18 @@ export class CadastrarUsuarioPage {
   ionViewDidLoad() {
   }
 
-  setDataMinima() {
-    if (this.usuario.tipoPessoa == 'F')
-      this.dataMinima = `${this.dataAtual.getFullYear() - 18}`;
-    else
-      this.dataMinima = `${this.dataAtual.getFullYear()}`;
+  showHidePass() {
+		this.passwordType = this.passwordType === 'text' ? 'password' : 'text';
+		this.passwordIcon = this.passwordIcon === 'eye-off' ? 'eye' : 'eye-off';
+  }
+  
+  showHideConfirmPass() {
+		this.confirmPasswordType = this.confirmPasswordType === 'text' ? 'password' : 'text';
+		this.confirmPasswordIcon = this.confirmPasswordIcon === 'eye-off' ? 'eye' : 'eye-off';
+	}
+
+  resetarData() {
+    this.usuario.dataNascimentoConstituicao = null;
   }
 
   cadastrar() {
@@ -63,6 +74,10 @@ export class CadastrarUsuarioPage {
 
       case 400:
         this.presentModal(res.error.message);
+        break;
+
+      case 409:
+        this.presentToast(res.error.message);
         break;
 
       default:

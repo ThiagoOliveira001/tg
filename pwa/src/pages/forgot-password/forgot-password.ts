@@ -8,7 +8,7 @@ import { UsuarioProvider } from '../../providers/usuario/usuario.service';
 })
 
 export class ForgotPasswordPage {
-  email: string = "moreira.g.thiago@gmail.com";
+  email: string;
   loading: any;
 
   constructor(
