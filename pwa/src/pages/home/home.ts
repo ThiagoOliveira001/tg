@@ -1,18 +1,29 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild, ElementRef } from '@angular/core';
 import { NavController } from 'ionic-angular';
+import { ConsumoProvider } from '../../providers/consumo/consumo.service';
 
 @Component({
   selector: 'page-home',
   templateUrl: 'home.html'
 })
 export class HomePage {
-  consumoAtual: any = 0;
+  consumoAtual: any = 2.4;
   today: any = Date.now();
+  connection: any;
 
-
-  constructor(public navCtrl: NavController) {
-    this.valores();
+  constructor(public navCtrl: NavController, private _service: ConsumoProvider) {
+    //this.valores();
   }
+
+  ionViewDidLoad() {
+    this._service.startSocket().then(() => {
+      this.connection = this._service.getConsumo().subscribe((data: any) => {
+        this.consumoAtual = data.valor;
+        this.today = data.data;
+      })
+    });
+  }
+
 
   valores() {
     setInterval(() => {

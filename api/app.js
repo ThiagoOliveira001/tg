@@ -3,7 +3,9 @@ const express = require('express'),
     cors = require('cors'),
     config = require('./config/settings'),
     mongo = require("./config/mongo"),
-    app = express();
+    app = express(),
+    server = require("http").createServer(app),
+    io = require('socket.io')(server);
 
 (async () => {
     try {
@@ -22,9 +24,11 @@ const express = require('express'),
         require('./src/api/routes/ping')(app);
         require('./src/api/routes/set')(app);
 
-        require('./mcu')(config);
+        require('./mcu')(config,io);
 
-        app.listen(config.port, () => {
+        //Ativando transmição real-time
+
+        server.listen(config.port, () => {
             console.log(`server on: ${config.port}`);
         });
     }

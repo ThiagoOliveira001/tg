@@ -7,4 +7,13 @@ page-home {
         background: rgb(22, 22, 22);
         border: 5px solid green;
     }
+    #container {
+        display: flex;
+        justify-content: center;
+        margin-top: 30%;
+        #consumo {
+            display: grid;
+            grid-template-columns: 2fr 2fr;
+        }
+    }
 }

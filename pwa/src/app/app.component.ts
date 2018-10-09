@@ -9,6 +9,7 @@ import { LoginPage } from '../pages/login/login';
 import { AlterarUsuarioPage } from '../pages/usuario/alterar/usuario-alterar';
 
 import { AuthServiceProvider } from '../providers/auth-service/auth-service';
+import { ConsumoPage } from '../pages/consumo/consumo';
 
 @Component({
   templateUrl: 'app.html'
@@ -32,6 +33,7 @@ export class MyApp {
     this.pages = [
       { title: 'Home', component: HomePage },
       { title: 'Meu Usuario', component: AlterarUsuarioPage },
+      { title: 'Consumo', component: ConsumoPage }
     ];
 
   }

@@ -11,6 +11,7 @@ async function cadastrar(req, res) {
 }
 
 async function buscarConsumoPorUsuario(req, res) {
-    let retorno = await repository.buscarConsumoPorUsuario(req.user.id);
+    let retorno = await repository.buscarConsumoPorUsuario(req.params.id, req.query);
+    console.log(retorno);
     res.ok(retorno);
 }

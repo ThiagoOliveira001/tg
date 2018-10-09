@@ -2,13 +2,34 @@ const Schema = require("./consumoSchema");
 
 module.exports = {
     cadastrar,
-    buscarConsumoPorUsuario
+    buscarConsumoPorUsuario,
 }
 
 async function cadastrar(consumo) {
-    await Schema.create(consumo);
+   try {
+        await Schema.create(consumo);
+   } catch(error) {
+        console.log(error);
+   }
 }
 
-async function buscarConsumoPorUsuario(idUsuario) {
-    
+
+async function buscarConsumoPorUsuario(idUsuario,filtro) {
+    console.log(filtro);
+    return await Schema.aggregate([
+        {
+            $match: { 
+                $and: [ 
+                    { data: { $gte: new Date(filtro.inicio) } }, 
+                    { data: { $lte: new Date(filtro.fim) } } 
+                ] 
+            }
+        },
+        { 
+            $group: {
+                _id: { month: { $month: "$data" }, day: { $dayOfMonth: "$data" }, year: { $year: "$data" } },
+                total: { $sum: "$valor" }
+            } 
+        }
+    ]);
 }

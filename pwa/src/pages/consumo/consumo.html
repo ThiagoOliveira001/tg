@@ -1,0 +1,31 @@
+<ion-header>
+    <ion-navbar color="primary">
+        <ion-title>Consumo</ion-title>
+    </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+    <ion-list>
+        <form #consumoForm="ngForm" (ngsubmit)="onSubmit()">
+            <ion-item>
+                <ion-label floating>De</ion-label>
+                <ion-datetime displayFormat='DD/MM/YYYY' name="dateInicial" [(ngModel)]="filtro.dataInicial"></ion-datetime>
+            </ion-item>
+            <ion-item>
+                <ion-label floating>Até</ion-label>
+                <ion-datetime displayFormat='DD/MM/YYYY' name="dataFinal" [(ngModel)]="filtro.dataFinal"></ion-datetime>
+            </ion-item> 
+            <ion-fab>
+                <button type="submit" (click)="onSubmit()" ion-fab mini>
+                    <ion-icon name="stats"></ion-icon>
+                </button>
+            </ion-fab> 
+        </form>
+    </ion-list>
+    <ion-card>
+        <ion-card-header>Consumo</ion-card-header>
+        <ion-card-content>
+            <canvas #graficoBarra></canvas>
+        </ion-card-content>
+    </ion-card>
+</ion-content>
