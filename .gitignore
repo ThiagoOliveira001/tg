@@ -1,6 +1,6 @@
-/api/node_modules
+/api/node_modules/
 /api/package-lock.json
-/api/.vscode
+/api/.vscode/
 
 /pwa/node_modules
 /pwa/package-lock.json
