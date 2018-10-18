@@ -37,7 +37,7 @@ function setEvents(conn) {
     });
 }
 
-async function getParametersAndUpdateSettings(callback) {
+async function getParametersAndUpdateSettings() {
     const paramsSchema = new mongoose.Schema();
     let model = mongoose.model("parameters", paramsSchema, "parameters");
     let parameters = await model.findOne();
