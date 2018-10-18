@@ -1,5 +1,8 @@
 <ion-header>
     <ion-navbar color="primary">
+        <button ion-button menuToggle>
+            <ion-icon name="menu"></ion-icon>
+        </button>
         <ion-title>Consumo</ion-title>
     </ion-navbar>
 </ion-header>
@@ -14,12 +17,12 @@
             <ion-item>
                 <ion-label floating>Até</ion-label>
                 <ion-datetime displayFormat='DD/MM/YYYY' name="dataFinal" [(ngModel)]="filtro.dataFinal"></ion-datetime>
-            </ion-item> 
+            </ion-item>
             <ion-fab>
                 <button type="submit" (click)="onSubmit()" ion-fab mini>
                     <ion-icon name="stats"></ion-icon>
                 </button>
-            </ion-fab> 
+            </ion-fab>
         </form>
     </ion-list>
     <ion-card>

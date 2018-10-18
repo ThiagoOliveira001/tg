@@ -10,22 +10,8 @@ import { connectableObservableDescriptor } from "rxjs/observable/ConnectableObse
 })
 export class ConsumoPage {
     filtro: any = {};
-    labels: any = [
-        '02/10',
-        '03/10',
-        '04/10',
-        '05/10',
-        '06/10',
-        '07/10'
-    ];
-    data: any = [
-        23.57,
-        12.8,
-        56.12,
-        43,
-        12,
-        7
-    ];
+    labels: any = [];
+    data: any = [];
 
     @ViewChild('graficoBarra') barraEl;
     barChart: any;

@@ -6,8 +6,8 @@
 
 EnergyMonitor emon;
 
-#define SSID_REDE "Oliveira"
-#define SENHA_REDE "giloliveira27"
+#define SSID_REDE "rede"
+#define SENHA_REDE "senha"
 #define INTERVALO_ENVIO_MQTT 10000
 
 #define TOPICO_SUBSCRIBE "energia"

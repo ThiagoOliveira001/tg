@@ -8,7 +8,7 @@ import { ConsumoProvider } from '../../providers/consumo/consumo.service';
 })
 export class HomePage {
   consumoAtual: any = 2.4;
-  today: any = Date.now();
+  today: any;
   connection: any;
 
   constructor(public navCtrl: NavController, private _service: ConsumoProvider) {
@@ -19,7 +19,7 @@ export class HomePage {
     this._service.startSocket().then(() => {
       this.connection = this._service.getConsumo().subscribe((data: any) => {
         this.consumoAtual = data.valor;
-        this.today = data.data;
+        this.today = data.hora.toString().replace(/,/ig,':'); 
       })
     });
   }
