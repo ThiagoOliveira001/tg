@@ -26,3 +26,5 @@ function decrypt(token) {
 function hash(value) {
     return md5(`!@${value}@!`);
 }
+
+console.log(encrypt("bacon"));
