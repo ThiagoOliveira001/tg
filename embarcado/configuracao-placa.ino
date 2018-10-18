@@ -2,9 +2,12 @@
 #include <PubSubClient.h>
 #include <NTPClient.h>
 #include <WiFiUdp.h>
+#include "EmonLib.h"
 
-#define SSID_REDE "rede"
-#define SENHA_REDE "senha"
+EnergyMonitor emon;
+
+#define SSID_REDE "Oliveira"
+#define SENHA_REDE "giloliveira27"
 #define INTERVALO_ENVIO_MQTT 10000
 
 #define TOPICO_SUBSCRIBE "energia"
@@ -20,7 +23,7 @@ uint32_t previousMillis = 0;
 
 NTPClient timeClient(ntpUDP, "br.pool.ntp.org", -10800);
 
-const char* BROKER_MQTT = "192.168.1.8";
+const char* BROKER_MQTT = "192.168.1.6";
 int BROKER_PORT = 1883;
 //const char* BROKER_USER = "fatec";
 //const char* BROKER_PASSWORD = "teste";
@@ -113,8 +116,7 @@ void VerificaConexoesWiFIEMQTT(void)
 void setup()
 {
   Serial.begin(9600);
-  lastConnectionTime = 0;
-  lastMQTTSendTime = 0;
+  emon.current(pinSCT, 6.0606);
   initWiFi();
   initMQTT();
   Serial.println("Consumo energia ESP8266 NodeMCU");
@@ -125,14 +127,14 @@ void setup()
 void loop()
 {
   char  MsgEletricidadeMQTT[80];
-  float x = (float)rand() / (float)(100);
+  double Irms = emon.calcIrms(1480);
+  Serial.println(Irms);
   while(!timeClient.update()) {
     timeClient.forceUpdate();
   }
   horas = timeClient.getFormattedTime();
-  Serial.println(horas);
   VerificaConexoesWiFIEMQTT();
-  sprintf(MsgEletricidadeMQTT, "{\"idHardware\": %d, \"idUsuario\": %d,\"valor\": %f, \"hora\": \"%s\" }", id, usuario, x, horas.c_str());
+  sprintf(MsgEletricidadeMQTT, "{\"idHardware\": %d, \"idUsuario\": %d,\"valor\": %f, \"hora\": \"%s\" }", id, usuario, (Irms * tensao), horas.c_str());
   MQTT.publish(TOPICO_PUBLISH, MsgEletricidadeMQTT);
   delay(1000);
 }

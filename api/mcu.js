@@ -32,8 +32,9 @@ module.exports = (config,io) => {
         //     client.emit('consumo-atual', obj);
         // }
         myEmitter.on('new', function(cm) {
-            console.log('emit event');
-            client.emit('consumo-novo', cm);
+            if (client.handshake.query.id == cm.idUsuario) {
+                client.emit('consumo-novo', cm);   
+            }
         });
         client.on('disconnect', () => {
             console.log(`disconnect ${client.id}`);
